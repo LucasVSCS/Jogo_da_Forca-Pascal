@@ -8,17 +8,26 @@ resp: string;
 
 Begin
 
- //Perguntas e suas correspondentes respostas 
+ //Perguntas e suas correspondentes respostas
+ 
   //Microrganismo usado na fermentação para a fabricação de cerveja e de pães
+  
   resposta[1]:= 'Fungo';
+  
   //Ramo da zoologia que estuda os insetos
+  
   resposta[2]:= 'Entomologia';
+  
   //Sal mineral presente na coagulação do sangue
+  
   resposta[3]:= 'Calcio';
+  
   //Complexo embrionário exclusivo dos mamíferos
+  
   resposta[4]:= 'Placenta';
   
  //Menu principal simples 
+ 
   writeln ('=================Jogo da Forca===================');
   writeln;
   writeln ('1 ===================Começar=====================');
