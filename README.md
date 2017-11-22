@@ -7,7 +7,8 @@ opcao_menu, opcao_assunto, opcao_dificuldade, pontos: integer;
 resp: string;
 
 Begin
-  
+
+ //Perguntas e suas correspondentes respostas 
   //Microrganismo usado na fermentação para a fabricação de cerveja e de pães
   resposta[1]:= 'Fungo';
   //Ramo da zoologia que estuda os insetos
@@ -17,7 +18,7 @@ Begin
   //Complexo embrionário exclusivo dos mamíferos
   resposta[4]:= 'Placenta';
   
-  
+ //Menu principal simples 
   writeln ('=================Jogo da Forca===================');
   writeln;
   writeln ('1 ===================Começar=====================');
@@ -27,11 +28,11 @@ Begin
   writeln ('3 ====================Loja=======================');
   writeln;
   
-  
+ //Recebe a opção digitada pelo usuário e limpa a tela 
   readln (opcao_menu);
   clrscr;
   
-  
+ //Caso ele escolha a primeira opção, começa o jogo 
   if (opcao_menu = 1) then
   begin
     
@@ -46,9 +47,11 @@ Begin
     writeln ('4 ===================Biologia====================');
     writeln;
     
+   //Recebe a opção digitada pelo usuário e limpa a tela  
     readln (opcao_assunto);
     clrscr;
-    
+   
+   //Caso escolha a primeira opção, vai para o menu de dificuldade das perguntas na área do entreterimento
     if (opcao_assunto = 1) then
     begin
       writeln ('=================Entreterimento================');
@@ -62,7 +65,8 @@ Begin
       writeln ('3 - Difícil');
       writeln;
     end
-    
+  
+  //Caso escolha a segunda opção, vai para o menu de dificuldade das perguntas na área da matemática
     
     else
     if (opcao_assunto = 2) then
@@ -78,7 +82,9 @@ Begin
       writeln ('3 - Difícil');
       writeln;
     end
-    
+   
+  //Caso escolha a terceira opção, vai para o menu de dificuldade das perguntas na área da história
+   
     else
     if (opcao_assunto = 3) then
     begin
@@ -93,7 +99,9 @@ Begin
       writeln ('3 - Difícil');
       writeln;
     end
-    
+   
+  //Caso escolha a quarta opção, vai para o menu de dificuldades das perguntas na área da biologia
+   
     else
     if (opcao_assunto = 4) then
     begin
@@ -108,9 +116,11 @@ Begin
       writeln ('3 - Difícil');
       writeln;
       
+     //Recebe a opção digitada pelo usuário e limpa a tela  
       readln (opcao_dificuldade);
       clrscr;
       
+     //Caso o usuário digite a primeira opção, apresenta uma pergunta fácil 
       if (opcao_dificuldade = 1) then
       begin
         writeln ('===================DICA=====================');
@@ -122,6 +132,8 @@ Begin
           pontos := pontos + 10;
         end
       end
+     
+     //Caso o usuário digite a segunda opção, apresenta uma pergunta intermediaria
       else
       if (opcao_dificuldade = 2) then
       begin
@@ -135,6 +147,8 @@ Begin
         end
       end
       else
+      
+     //Caso o usuário digite a terceira opção, apresenta uma pergunta dificil
       if (opcao_dificuldade = 3) then
       begin
         writeln ('===================DICA=====================');
@@ -149,5 +163,6 @@ Begin
     end;
   end;
   
+  //Mostra na tela os pontos conquistados pelo usuário
   writeln (pontos)
 End.
