@@ -11,8 +11,10 @@
   //Recebe por valor e por referência
   resposta[5]:= 'Parametros';
   //Armazenamento da Resposta da Area de Logica Nivel Medio
+  //Armazena Informações
   resposta[6]:= 'Variaveis';
   //Armazenamento da Resposta da Area de Logica Nivel Dificil
+  //Algoritmos
   resposta[7]:= 'Comentarios';
   //Quem é o(a) recordistas de vendas de discos no Brasil?
   resposta[9]:= 'Roberto Carlos';
