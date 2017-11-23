@@ -14,11 +14,11 @@
   resposta[6]:= 'Variaveis';
   //Armazenamento da Resposta da Area de Logica Nivel Dificil
   resposta[7]:= 'Comentarios';
-  //
+  //Quem é o(a) recordistas de vendas de discos no Brasil?
   resposta[9]:= 'Roberto Carlos';
-  //
+  //Chaves, a série. Correios
   resposta[10]:= 'Jaiminho';
-  //
+  //Entidade mutante
   resposta[11]:= 'Fenix0,';
   //Microrganismo usado na fermentação para a fabricação de cerveja e de pães
   resposta[13]:= 'fungo';
