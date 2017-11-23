@@ -1,1 +1,28 @@
-
+  
+  //Armazenamento das Respostar corretar
+  
+  //Armazenamento da Resposta da Area de Entretenimento Nivel Facil
+  resposta[1]:= '';
+  //Armazenamento da Resposta da Area de Entretenimento Nivel Medio
+  resposta[2]:= '';
+  //Armazenamento da Resposta da Area de Entretenimento Nivel Dificil
+  resposta[3]:= '';
+  //Armazenamento da Resposta da Area de Logica Nivel Facil
+  //Recebe por valor e por referência
+  resposta[5]:= 'Parametros';
+  //Armazenamento da Resposta da Area de Logica Nivel Medio
+  resposta[6]:= 'Variaveis';
+  //Armazenamento da Resposta da Area de Logica Nivel Dificil
+  resposta[7]:= 'Comentarios';
+  //
+  resposta[9]:= 'Roberto Carlos';
+  //
+  resposta[10]:= 'Jaiminho';
+  //
+  resposta[11]:= 'Fenix0,';
+  //Microrganismo usado na fermentação para a fabricação de cerveja e de pães
+  resposta[13]:= 'fungo';
+  //Ramo da zoologia que estuda os insetos
+  resposta[14]:= 'entomologia';
+  //Complexo embrionário exclusivo dos mamíferos
+  resposta[15]:= 'placenta';
