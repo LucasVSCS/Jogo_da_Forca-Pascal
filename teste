@@ -169,37 +169,45 @@ end;
 
 procedure merda();
 begin
-  writeln
+
+ writeln('Digite uma palavra');
   readln (palavra);
   if (palavra <> resposta[opcao]) then
   begin
-    boneco_cabeca()
+    boneco_cabeca() ;
   end;
-  readln (palavra)
+  
+ writeln('Digite uma Palavra'); 
+  readln (palavra);
   clrscr;
   if (palavra <> resposta[opcao]) then
   begin
-    boneco_corpo()
+    boneco_corpo();
   end;
-  readln (palavra)
+  
+ writeln('Digite uma Palavra'); 
+  readln (palavra);
   clrscr;
   if (palavra <> resposta[opcao]) then
   begin
-    boneco_braco1()
+    boneco_braco1();
   end;
-  readln (palavra)
+  
+ writeln('Digite uma palavra'); 
+  readln (palavra);
   clrscr;
   if (palavra <> resposta[opcao]) then
   begin
-    boneco_braco2()
+    boneco_braco2();
   end;
-  readln (palavra)
+  
+  readln (palavra);
   clrscr;
   if (palavra <> resposta[opcao]) then
   begin
-    boneco()
+    boneco();
   end;
-  writeln ('Você perdeu')
+  writeln ('Você perdeu');
 end;
 
 Begin
@@ -212,22 +220,18 @@ Begin
   
   case opcao of
     1:
-    for i:= 1 to length(resposta[opcao]) do
+       for i:= 1 to length(resposta[opcao]) do
     begin
+    merda();
       teste := '_ ';
-      write (teste)
+      write (teste);
     end;
-    for i:= to 6 do
+    2:
+    begin
+    merda();
+      teste := '_ ';
+      write (teste) ;
+    end;
   end;
-end;
-
-
-2:
-for i:= 1 to length(resposta[opcao])
-do
-begin
-  teste := '_ ';
-  write (teste)
-end;
-
+  
 End.
