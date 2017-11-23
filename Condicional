@@ -1,0 +1,298 @@
+Program Pzim ;
+
+var
+resposta, teste: string;
+tentativa: integer;
+
+procedure boneco();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  writeln('    ``  NMM MMM`                      NMMs       ');
+  writeln('       `MMM MMM.                     yMMMM/      ');
+  writeln('       :MMM MMM-                    sMMMMMM/     ');
+  writeln('       sMMN MMM+                   oMMMMMMMM/    ');
+  writeln('       hMMy mMMs                  /MMMMMMNMMM:   ');
+  writeln('       yMM/ hMMs                 :MMMomMMosMMM:  ');
+end;
+
+procedure boneco_cabeca();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy                     :hMMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+procedure boneco_corpo();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('       yNMMMMM/                      mMMo        ');
+  writeln('       `NMMMMM:                      mMMo        ');
+  writeln('        NMMMMM:                      mMMo        ');
+  writeln('        NMMMMM-                      mMMo        ');
+  writeln('                                     NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+procedure boneco_braco1();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('   `NMMyNMMMMM/                      mMMo        ');
+  writeln('   oMMN`NMMMMM:                      mMMo        ');
+  writeln('   yMMd NMMMMM:                      mMMo        ');
+  writeln('   +MMy NMMMMM-                      mMMo        ');
+  writeln('    ``                               NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+procedure boneco_braco2();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  writeln('    ``                               NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+procedure boneco_perna1();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  writeln('    ``  NMM                           NMMs       ');
+  writeln('       `MMM                          yMMMM/      ');
+  writeln('       :MMM                         sMMMMMM/     ');
+  writeln('       sMMN                        oMMMMMMMM/    ');
+  writeln('       hMMy                       /MMMMMMNMMM:   ');
+  writeln('       yMM/                      :MMMomMMosMMM:  ');
+end;
+
+Begin
+  
+  teste:= 'eae';
+  
+  repeat
+    
+    begin
+      writeln ('Digite a resposta');
+      readln (resposta);
+      clrscr;
+      if (resposta <> teste) then
+      begin
+        tentativa := tentativa + 1
+      end
+      else
+      if (resposta = teste) then
+      begin
+        writeln ('Você acertou');
+        break
+      end;
+      
+      if (tentativa = 1) then
+      begin
+        boneco_cabeca();
+        writeln ('Digite a resposta');
+        readln (resposta);
+        if (resposta = teste) then
+        begin
+          clrscr;
+          boneco_cabeca();
+          writeln ('Você acertou');
+          break
+        end
+        else
+        if (resposta <> teste) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 2) then
+      begin
+        clrscr;
+        boneco_corpo();
+        writeln ('Digite a resposta');
+        readln (resposta);
+        if (resposta = teste) then
+        begin
+          clrscr;
+          boneco_corpo();
+          writeln ('Você acertou');
+          break
+        end
+        else
+        if (resposta <> teste) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 3) then
+      begin
+        clrscr;
+        boneco_braco1();
+        writeln ('Digite a resposta');
+        readln (resposta);
+        if (resposta = teste) then
+        begin
+          clrscr;
+          boneco_braco1();
+          writeln ('Você acertou');
+          break
+        end
+        else
+        if (resposta <> teste) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 4) then
+      begin
+        clrscr;
+        boneco_braco2();
+        writeln ('Digite a resposta');
+        readln (resposta);
+        if (resposta = teste) then
+        begin
+          clrscr;
+          boneco_braco2();
+          writeln ('Você acertou');
+          break
+        end
+        else
+        if (resposta <> teste) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 5) then
+      begin
+        clrscr;
+        boneco_perna1();
+        writeln ('Digite a resposta');
+        readln (resposta);
+        if (resposta = teste) then
+        begin
+          clrscr;
+          boneco_perna1();
+          writeln ('Você acertou');
+          break
+        end
+        else
+        if (resposta <> teste) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 6) then
+      begin
+        clrscr;
+        boneco();
+        writeln ('Você perdeu');
+        tentativa := tentativa + 1
+      end;
+    end;
+  until (tentativa > 0);
+end.
