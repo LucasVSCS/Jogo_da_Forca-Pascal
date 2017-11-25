@@ -95,7 +95,7 @@ begin
     end
     else
     begin
-      writeln('Você não tem Pontos suficientes    ',pontos);
+      writeln('Você não tem Pontos suficientes,    ',pontos);
       loja := loja + 1
     end;    
   until (loja = 4);
