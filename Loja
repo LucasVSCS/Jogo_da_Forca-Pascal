@@ -1,99 +1,103 @@
-gotoxy(1,18);
-    writeln('Opções');
-    gotoxy(1,20);
-    writeln('1: Para Premio Prata');
-    gotoxy(1,22);
-    writeln('2: Para Premio Ouro');
-    gotoxy(1,24);
-    writeln('3: Para Premio Diamante');
-    gotoxy(1,26);
-    writeln('4: Para Premio Mestre');
-    gotoxy(1,28);
-    writeln('5: Para Voltar Pro menu');
+loja;
+
+begin
+  
+  
+  gotoxy(1,24);
+  writeln('Escolha sua opção de acordo com seus Pontos');
+  gotoxy(1,26);
+  writeln('1: Para Premio Prata');
+  gotoxy(1,28);
+  writeln('2: Para Premio Ouro');
+  gotoxy(1,30);
+  writeln('3: Para Premio Diamante');
+  
+  
+  writeln();
+  writeln(' ');
+  gotoxy(1,32);
+  writeln ('Você tem: ',pontos,' pontos');
+  
+  gotoxy(4,1);
+  writeln ('===========================Loja=========================');
+  
+  
+  gotoxy(4,5);
+  writeln('=');
+  gotoxy(20,5);
+  writeln('=');
+  gotoxy(4,6);
+  writeln('=================');
+  gotoxy(4,4);
+  writeln('=================');
+  gotoxy(5,5);
+  writeln ('Premio Prata');
+  gotoxy(5,8);
+  writeln('30 Pontos');
+  
+  gotoxy(23,5);
+  writeln('=');
+  gotoxy(39,5);
+  writeln('=');
+  gotoxy(23,4);
+  writeln('=================');
+  gotoxy(23,6);
+  writeln('=================');
+  gotoxy(25,5);
+  writeln('Premio Ouro');
+  gotoxy(25,8);
+  writeln('60 Pontos');
+  
+  
+  gotoxy(43,5);
+  writeln('=');
+  gotoxy(59,5);
+  writeln('=');
+  gotoxy(43,4);
+  writeln('=================');
+  gotoxy(43,6);
+  writeln('=================');
+  gotoxy(45,5);
+  writeln('Premio Platina');
+  gotoxy(45,8);
+  writeln('90 Pontos');
+  
+  gotoxy(1,20);
+  readln(Loja);
+  
+  repeat
     
-    writeln();
-    writeln(' ');
-    gotoxy(1,30);
-    writeln ('Você tem: ',pontos,' pontos');
-    
-    gotoxy(4,1);
-    writeln ('===========================Loja=========================');
-    
-    
-    gotoxy(4,5);
-    writeln('=');
-    gotoxy(20,5);
-    writeln('=');
-    gotoxy(4,6);
-    writeln('=================');
-    gotoxy(4,4);
-    writeln('=================');
-    gotoxy(5,5);
-    writeln ('Premio Prata');
-    gotoxy(5,8);
-    writeln('85 Pontos');
-    
-    gotoxy(23,5);
-    writeln('=');
-    gotoxy(39,5);
-    writeln('=');
-    gotoxy(23,4);
-    writeln('=================');
-    gotoxy(23,6);
-    writeln('=================');
-    gotoxy(25,5);
-    writeln('Premio Ouro');
-    gotoxy(25,8);
-    writeln('170 Pontos');
-    
-    
-    gotoxy(43,5);
-    writeln('=');
-    gotoxy(59,5);
-    writeln('=');
-    gotoxy(43,4);
-    writeln('=================');
-    gotoxy(43,6);
-    writeln('=================');
-    gotoxy(45,5);
-    writeln('Premio Platina');
-    gotoxy(45,8);
-    writeln('225 Pontos');
-    
-    readln(Loja);
-    
-    repeat
-      
-      if (loja = 1) then
-      begin
-        clrscr;
-        Prata();
-        loja := loja + 1;
-        break
-      end
-      else
-      if (loja = 2) then
-      begin
-        clrscr;
-        Ouro();
-        loja := loja + 1;
-        break
-      end
-      else
-      if (loja = 3) then
-      begin
-        clrscr;
-        diamante();
-        loja := loja + 1;
-        break
-      end
-      else
-      if (loja = 4) then
-      begin
-        clrscr;
-        Mestre();
-        loja := loja + 1;
-        break
-      end;
-      
-    until (loja = 5);
+    if (loja = 1) and (pontos = 30) then
+    begin
+      gotoxy(5,12);
+      writeln('Premio Prata: ');
+      gotoxy(5,14);
+      writeln('www.joinville.udesc.br/portal/professores/fiorese/materiais/apostilaC_Univ_Fed_Uberlandia.pdf');
+      loja := loja + 1;
+    end
+    else
+    if (loja = 2) and (pontos = 60) then
+    begin
+      gotoxy(5,12);
+      writeln('Premio Ouro: ');
+      gotoxy(5,14);
+      writeln('Você Ganho Um Grande Nada');
+      loja := loja + 1;
+    end
+    else
+    if (loja = 3) and (pontos = 90) then
+    begin
+      gotoxy(5,12);
+      writeln('Premio Platina: ');
+      gotoxy(5,14);
+      writeln('dsaudaisjda.com.br');
+      loja := loja + 1;
+    end
+    else
+    begin
+      writeln('Você n tem Pnts suficientes    ',pontos);
+      loja := loja+3
+    end;    
+  until (loja = 4);
+  
+end;
