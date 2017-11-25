@@ -10,7 +10,7 @@ begin
   gotoxy(1,28);
   writeln('2: Para Premio Ouro');
   gotoxy(1,30);
-  writeln('3: Para Premio Diamante');
+  writeln('3: Para Premio Platina');
   
   
   writeln();
@@ -81,7 +81,7 @@ begin
       gotoxy(5,12);
       writeln('Premio Ouro: ');
       gotoxy(5,14);
-      writeln('Você Ganho Um Grande Nada');
+      writeln('www.w3c.br/pub/Cursos/CursoHTML5/html5-web.pdf');
       loja := loja + 1;
     end
     else
@@ -90,13 +90,13 @@ begin
       gotoxy(5,12);
       writeln('Premio Platina: ');
       gotoxy(5,14);
-      writeln('dsaudaisjda.com.br');
+      writeln('www.caelum.com.br/download/caelum-java-objetos-fj11.pdf');
       loja := loja + 1;
     end
     else
     begin
       writeln('Você n tem Pnts suficientes    ',pontos);
-      loja := loja+3
+      loja := loja + 1
     end;    
   until (loja = 4);
   
