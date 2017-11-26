@@ -1,0 +1,961 @@
+Program Judas ;
+
+uses
+crt;
+
+var
+resposta: array[1..12] of string;
+pergunta: array[1..12] of string;
+opcao_menu, opcao_assunto, opcao_dificuldade, pontos, tentativa, i, loja: integer;
+opcao: char;
+resp, teste: string;
+
+//Procedimento relacionado a arte da forca
+procedure forca();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('          hM                 :dMMMy. mMMo        ');
+  writeln('                               :dMMMyNMMo        ');
+  writeln('                                 :dMMMMMo        ');
+  writeln('                                   :hMMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento relacionado a arte do boneco caso o usuário acerta a pergunta
+procedure boneco_feliz();
+begin
+  writeln ('                     /shddhs/         +NMd`    ');
+  writeln ('                   /NMMMMMMMMN/     `hMMMm`    ');
+  writeln ('                  :MMMMMMMMMMMM:   -mMMMd`     ');
+  writeln ('                  sMMMMMMMMMMMMs  oMMMMd`      ');
+  writeln ('                  :MMMMMMMMMMMM:`hMMMMh`       ');
+  writeln ('        -+/-`      :mMMMMMMMMm:/NMMMMy         ');
+  writeln ('       .MMMMMMmhyo/:.:ohddho:-hMMMMMy          ');
+  writeln ('        :sdNMMMMMMMMMMmdyssymMMMMMMs           ');
+  writeln ('            .:oymMMMMMMMMMMMMMMMMMMo           ');
+  writeln ('                 `-+sdNMMMMMMMMMMMMM/          ');
+  writeln ('                       .dMMMMMMMMMMMN`         ');
+  writeln ('                        -MMMMMMMMMMMMs         ');
+  writeln ('                         hMMMMMMMMMMMM`        ');
+  writeln ('                         +MMMMMMMMMMMM+        ');
+  writeln ('                         :MMMMMMMMMMMMh        ');
+  writeln ('                         :MMMMMMMMMMMMm        ');
+  writeln ('                         .MMMMMMMMMMMMN`       ');
+  writeln ('                          dMMMMMMMMMMMMy       ');
+  writeln ('                          mMMMMMMMMMMMMM:      ');
+  writeln ('                         `MMMMMMs:NMMMMMm      ');
+  writeln ('                         :MMMMMN` -MMMMMM:     ');
+  writeln ('               /ss/-     yMMMMMo `hMMMMMMy     ');
+  writeln ('              /MMMMMMmhhhMMMMMd  .MMMMMMMh     ');
+  writeln ('              `odMMMMMMMMMMMMh`   -mMMMMMs     ');
+  writeln ('                 `:oydNMMNmy:       :oys/      ');
+end;
+
+//Procedimento relacionado a arte do boneco caso o usuário erre a pergunta
+procedure boneco();
+begin
+  writeln('***************************************************');
+  writeln('*     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        *');
+  writeln('*     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        *');
+  writeln('*          hM         :dMMMy.         mMMo        *');
+  writeln('*          hM           :dMMMy.       mMMo        *');
+  writeln('*          hM             :dMMMy.     mMMo        *');
+  writeln('*          hM               :dMMMy.   mMMo        *');
+  writeln('*      ..` hM                 :dMMMy. mMMo        *');
+  writeln('*    oNMMMmmM                   :dMMMyNMMo        *');
+  writeln('*   /MMMMMMMM                     :dMMMMMo        *');
+  writeln('*   .NMMMMMMMmy:                    :hMMMo        *');
+  writeln('*    `/hMMMMMMMMd.                    mMMo        *');
+  writeln('*     :NMMMMMMMMMN-                   mMMo        *');
+  writeln('*    :MMMMMMMMMNMMm                   mMMo        *');
+  writeln('*   `NMMyNMMMMM/MMM/                  mMMo        *');
+  writeln('*   oMMN`NMMMMM:dMMy                  mMMo        *');
+  writeln('*   yMMd NMMMMM:sMMm                  mMMo        *');
+  writeln('*   +MMy NMMMMM--dmy                  mMMo        *');
+  writeln('*    ``  NMM MMM`                      NMMs       *');
+  writeln('*       `MMM MMM.                     yMMMM/      *');
+  writeln('*       :MMM MMM-                    sMMMMMM/     *');
+  writeln('*       sMMN MMM+                   oMMMMMMMM/    *');
+  writeln('*       hMMy mMMs                  /MMMMMMNMMM:   *');
+  writeln('*       yMM/ hMMs                 :MMMomMMosMMM:  *');
+  writeln('***************************************************');
+end;
+
+//Procedimento relacionado a arte do boneco caso o usuário erre a primeira resposta
+procedure boneco_cabeca();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy                     :hMMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     mMMo        ');
+  writeln('                                     NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento relacionado a arte do boneco caso o usuário erre a segunda resposta
+procedure boneco_corpo();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('       yNMMMMM/                      mMMo        ');
+  writeln('       `NMMMMM:                      mMMo        ');
+  writeln('        NMMMMM:                      mMMo        ');
+  writeln('        NMMMMM-                      mMMo        ');
+  writeln('                                     NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento relacionado a arte do boneco caso o usuário erre a terceira resposta
+procedure boneco_braco1();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('   `NMMyNMMMMM/                      mMMo        ');
+  writeln('   oMMN`NMMMMM:                      mMMo        ');
+  writeln('   yMMd NMMMMM:                      mMMo        ');
+  writeln('   +MMy NMMMMM-                      mMMo        ');
+  writeln('    ``                               NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento relacionado a arte do boneco caso o usuário erre a quarta resposta
+procedure boneco_braco2();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  writeln('    ``                               NMMs        ');
+  writeln('                                    yMMMM/       ');
+  writeln('                                   sMMMMMM/      ');
+  writeln('                                  oMMMMMMMM/     ');
+  writeln('                                 /MMMMMMNMMM:    ');
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento relacionado a arte do boneco caso o usuário erre a quinta resposta
+procedure boneco_perna1();
+begin
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  writeln('          hM         :dMMMy.         mMMo        ');
+  writeln('          hM           :dMMMy.       mMMo        ');
+  writeln('          hM             :dMMMy.     mMMo        ');
+  writeln('          hM               :dMMMy.   mMMo        ');
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  writeln('    ``  NMM                           NMMs       ');
+  writeln('       `MMM                          yMMMM/      ');
+  writeln('       :MMM                         sMMMMMM/     ');
+  writeln('       sMMN                        oMMMMMMMM/    ');
+  writeln('       hMMy                       /MMMMMMNMMM:   ');
+  writeln('       yMM/                      :MMMomMMosMMM:  ');
+end;
+
+//Procedimento para a condicional das perguntas, caso ele erre, o boneco ganha uma parte do corpo, caso ele acerte, ganha 10 pontos
+//e é solicitado se ele deseja voltar para o menu principal
+procedure condicional();
+begin
+  repeat
+    begin
+      tentativa := 0;
+      forca();
+      writeln (pergunta[i]);
+      readln (resp);
+      clrscr;
+      if (resp <> resposta[i]) then
+      begin
+        tentativa := tentativa + 1
+      end
+      else
+      if (resp = resposta[i]) then
+      begin
+        writeln ('Você acertou');
+        boneco_feliz();
+        pontos := pontos + 10;
+        writeln ('Pontos: ', pontos);
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          exit
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;
+      end;
+      
+      if (tentativa = 1) then
+      begin
+        writeln ('===================DICA=====================');
+        writeln;
+        boneco_cabeca();
+        writeln (pergunta[i]);
+        readln (resp);
+        
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          writeln ('Você acertou');
+          boneco_feliz();
+          pontos := pontos + 10;
+          writeln ('Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 2) then
+      begin
+        clrscr;
+        writeln ('===================DICA=====================');
+        writeln;
+        boneco_corpo();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          writeln ('Você acertou');
+          boneco_feliz();
+          pontos := pontos + 10;
+          writeln ('Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 3) then
+      begin
+        clrscr;
+        writeln ('===================DICA=====================');
+        writeln;
+        boneco_braco1();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          writeln ('Você acertou');
+          boneco_feliz();
+          pontos := pontos + 10;
+          writeln ('Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 4) then
+      begin
+        clrscr;
+        writeln ('===================DICA=====================');
+        writeln;
+        boneco_braco2();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          writeln ('Você acertou');
+          boneco_feliz();
+          pontos := pontos + 10;
+          writeln ('Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 5) then
+      begin
+        clrscr;
+        writeln ('===================DICA=====================');
+        writeln;
+        boneco_perna1();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          writeln ('Você acertou');
+          boneco_feliz();
+          pontos := pontos + 10;
+          writeln ('Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 6) then
+      begin
+        clrscr;
+        boneco();
+        writeln ('Você perdeu');
+        writeln ('Seus pontos foram zerados');
+        pontos:= 0;
+        tentativa := tentativa + 1;
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          exit
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;
+      end;
+    end;
+  until (tentativa > 0);
+end;
+
+//Procedimento pro menu de assunto: entreterimento
+procedure menu_entreterimento();
+begin
+  writeln ('=================Entreterimento================');
+  writeln;
+  writeln ('=================Dificuldade===================');
+  writeln;
+  writeln ('1 - Fácil');
+  writeln;
+  writeln ('2 - Intermediário');
+  writeln;
+  writeln ('3 - Difícil');
+  writeln;
+  readln (opcao_dificuldade);
+  clrscr;
+  
+  case opcao_dificuldade of
+    1:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 1;
+      condicional();
+    end;
+    
+    2:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 2;
+      condicional();
+    end;
+    
+    3:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 3;
+      condicional();
+    end;
+  end;
+end;
+
+
+//Procedimento pro menu de assunto: lógica
+procedure menu_logica();
+begin
+  writeln ('====================Lógica=====================');
+  writeln;
+  writeln ('=================Dificuldade===================');
+  writeln;
+  writeln ('1 - Fácil');
+  writeln;
+  writeln ('2 - Intermediário');
+  writeln;
+  writeln ('3 - Difícil');
+  writeln;
+  
+  readln (opcao_dificuldade);
+  clrscr;
+  
+  case opcao_dificuldade of
+    1:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 4;
+      condicional();
+    end;
+    
+    2:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 5;
+      condicional();
+    end;
+    
+    3:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 6;
+      condicional();
+    end;
+  end;
+end;
+
+//Procedimento pro menu de assunto: história
+procedure menu_historia();
+begin
+  writeln ('===================História====================');
+  writeln;
+  writeln ('=================Dificuldade===================');
+  writeln;
+  writeln ('1 - Fácil');
+  writeln;
+  writeln ('2 - Intermediário');
+  writeln;
+  writeln ('3 - Difícil');
+  writeln;
+  readln (opcao_dificuldade);
+  clrscr;
+  
+  case opcao_dificuldade of
+    1:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 7;
+      condicional();
+    end;
+    
+    2:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 8;
+      condicional();
+    end;
+    
+    3:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 9;
+      condicional();
+    end;
+  end;
+end;
+
+//Procedimento pro menu de assunto: biologia
+procedure menu_biologia();
+begin
+  writeln ('===================Biologia====================');
+  writeln;
+  writeln ('=================Dificuldade===================');
+  writeln;
+  writeln ('1 - Fácil');
+  writeln;
+  writeln ('2 - Intermediário');
+  writeln;
+  writeln ('3 - Difícil');
+  writeln;
+  
+  readln (opcao_dificuldade);
+  clrscr;
+  
+  case opcao_dificuldade of
+    1:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 10;
+      condicional();
+    end;
+    
+    2:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 11;
+      condicional();
+    end;
+    
+    3:
+    begin
+      writeln ('===================DICA=====================');
+      writeln;
+      i:= 12;
+      condicional();
+    end;
+  end;
+end;
+
+//Procedimento pro menu principal
+procedure menu_principal ();
+begin
+  writeln ('======================Judas======================');
+  writeln;
+  writeln ('1 ===================Começar=====================');
+  writeln;
+  writeln ('2 ==================Instruções===================');
+  writeln;
+  writeln ('3 ====================Loja=======================');
+  writeln;
+  
+  //Recebe a opção digitada pelo usuário e limpa a tela
+  readln (opcao_menu);
+  
+  clrscr;
+  
+  //Caso ele escolha a primeira opção, começa o jogo
+  case opcao_menu of
+    1:
+    begin
+      writeln ('==================Escolha um assunto=============');
+      writeln;
+      writeln ('1 ==================Entreterimento===============');
+      writeln;
+      writeln ('2 ===================Lógica======================');
+      writeln;
+      writeln ('3 ===================História====================');
+      writeln;
+      writeln ('4 ===================Biologia====================');
+      
+      //Recebe a opção digitada pelo usuário e limpa a tela
+      readln (opcao_assunto);
+      clrscr;
+      
+      //Caso escolha a primeira opção, vai para o menu de dificuldade das perguntas na área do entreterimento
+      if (opcao_assunto = 1) then
+      begin
+        menu_entreterimento();
+      end
+      
+      //Caso escolha a segunda opção, vai para o menu de dificuldade das perguntas na área de lógica
+      else
+      if (opcao_assunto = 2) then
+      begin
+        menu_logica();
+      end
+      
+      //Caso escolha a terceira opção, vai para o menu de dificuldade das perguntas na área da história
+      else
+      if (opcao_assunto = 3) then
+      begin
+        menu_historia();
+      end
+      
+      //Caso escolha a quarta opção, vai para o menu de dificuldades das perguntas na área da biologia
+      else
+      if (opcao_assunto = 4) then
+      begin
+        menu_biologia();
+      end
+    end;
+    //Caso escolha a segunda opção no menu principal, abre as instruções
+    2:
+    begin
+      writeln ('======================Instruções==================');
+      writeln;
+      write ('O objetivo deste jogo é descobrir uma palavra adivinhando suas letras.');
+      write ('Após escolher o tema e a dificuldade, o jogador irá escolher uma letra que suspeite fazer parte da palavra.');
+      write ('Caso a palavra contenha esta letra, será mostrado em que posição (ões) ela está. Entretanto, caso esta letra não exista na palavra, será desenhada uma parte do corpo do boneco do jogador. ');
+      write ('Se todas as 6 partes do corpo do boneco estiverem desenhadas, o jogador perderá.');
+      writeln;
+      writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+      readln (opcao);
+      if (opcao = 's') then
+      begin
+        clrscr;
+        exit;
+      end
+      else
+      if (opcao = 'n') then
+      begin
+        halt;
+      end;
+    end;
+    
+    //Caso escolha a terceira opção no menu principal, abre a loja
+    3:
+    begin
+      writeln ('=========================Loja=======================');
+      gotoxy(1,24);
+      writeln('Escolha sua opção de acordo com seus Pontos');
+      gotoxy(1,26);
+      writeln('1: Para Premio Prata');
+      gotoxy(1,28);
+      writeln('2: Para Premio Ouro');
+      gotoxy(1,30);
+      writeln('3: Para Premio Platina');
+      
+      
+      writeln();
+      writeln(' ');
+      gotoxy(1,32);
+      writeln ('Você tem: ',pontos,' pontos');
+      
+      gotoxy(4,1);
+      writeln ('===========================Loja=========================');
+      
+      
+      gotoxy(4,5);
+      writeln('=');
+      gotoxy(20,5);
+      writeln('=');
+      gotoxy(4,6);
+      writeln('=================');
+      gotoxy(4,4);
+      writeln('=================');
+      gotoxy(5,5);
+      writeln ('Premio Prata');
+      gotoxy(5,8);
+      writeln('30 Pontos');
+      
+      gotoxy(23,5);
+      writeln('=');
+      gotoxy(39,5);
+      writeln('=');
+      gotoxy(23,4);
+      writeln('=================');
+      gotoxy(23,6);
+      writeln('=================');
+      gotoxy(25,5);
+      writeln('Premio Ouro');
+      gotoxy(25,8);
+      writeln('60 Pontos');
+      
+      
+      gotoxy(43,5);
+      writeln('=');
+      gotoxy(59,5);
+      writeln('=');
+      gotoxy(43,4);
+      writeln('=================');
+      gotoxy(43,6);
+      writeln('=================');
+      gotoxy(45,5);
+      writeln('Premio Platina');
+      gotoxy(45,8);
+      writeln('90 Pontos');
+      
+      gotoxy(1,20);
+      readln(Loja);
+      
+      if (loja = 1) and (pontos >= 30) then
+      begin
+        gotoxy(5,12);
+        writeln('Premio Prata: ');
+        gotoxy(5,14);
+        writeln('APOSTILA C - https://goo.gl/7LoHKt');
+        pontos:= pontos - 30;
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          clrscr;
+          exit;
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;
+      end
+      else
+      if (loja = 1) and (pontos < 30) then
+      begin
+        writeln ('Pontos insuficientes');
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          clrscr;
+          exit;
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;
+      end
+      
+      else
+      if (loja = 2) and (pontos >= 60) then
+      begin
+        gotoxy(5,12);
+        writeln('Premio Ouro: ');
+        gotoxy(5,14);
+        writeln('APOSTILA HTML5 - https://goo.gl/SUac3C');
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          clrscr;
+          exit;
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;;
+      end
+      else
+      if (loja = 2) and (pontos < 60) then
+      begin
+        writeln ('Pontos insuficientes');
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          clrscr;
+          exit;
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;
+      end
+      
+      else
+      if (loja = 3) and (pontos >= 90) then
+      begin
+        gotoxy(5,12);
+        writeln('Premio Platina: ');
+        gotoxy(5,14);
+        writeln('APOSTILA JAVA - https://goo.gl/FCcR4W');
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          clrscr;
+          exit;
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;
+      end
+      else
+      if (loja = 3) and (pontos < 90) then
+      begin
+        writeln ('Pontos insuficientes');
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        if (opcao = 's') then
+        begin
+          clrscr;
+          exit;
+        end
+        else
+        if (opcao = 'n') then
+        begin
+          halt;
+        end;
+      end
+    end;
+  end;
+end;
+
+//Programa principal
+Begin
+  
+pergunta[1] := 'Recordista de vendas de discos no Brasil - 14 LETRAS';
+  resposta[1] := 'roberto carlos';
+  
+  pergunta[2] := 'Chaves - Série - Correios - 8 LETRAS';
+  resposta[2] := 'jaiminho';
+  
+  pergunta[3] := 'Entidade mutante - 5 LETRAS';
+  resposta[3] := 'fenix0';
+  
+  pergunta[4] := 'Recebo por valor e por referência - 10 LETRAS';
+  resposta[4] := 'parametros';
+  
+  pergunta[5] := 'Armazena Informações - 9 LETRAS ';
+  resposta[5] := 'variaveis';
+  
+  pergunta[6] := 'Algoritmos - 11 LETRAS';
+  resposta[6] := 'comentarios';
+  
+  pergunta[7] := 'Lei assinada pela princesa Isabel que proibia a escravidão no Brasil - 5 LETRAS';
+  resposta[7] := 'aurea';
+  
+  pergunta[8] := 'Incas - Continente - 7 LETRAS';
+  resposta[8] := 'america';
+  
+  pergunta[9] := 'Mesopotâmia - 7 LETRAS';
+  resposta[9] := 'escrita';
+  
+  pergunta[10] := 'Microorganismo usado na fermentação para a fabricação de cerveja e pães - 5 LETRAS';
+  resposta[10] := 'fungo';
+  
+  pergunta[11] := 'Zooologia, estudo de insetos - 11 LETRAS';
+  resposta[11] := 'entomologia';
+  
+  pergunta[12] := 'Embrião - 8 LETRAS';
+  resposta[12] := 'placenta';
+  
+  //Chama o procedimento do menu principal
+  menu_principal();
+  while (opcao = 's') do
+  begin
+    clrscr;
+    menu_principal();
+  end;
+  
+End.
