@@ -30,18 +30,181 @@ end;
 
 procedure painel_loja();
 begin
-  gotoxy (50,1);
+  gotoxy (60,1);
   writeln('  _      ____       _           ');
-  gotoxy (50,2);
+  gotoxy (60,2);
   writeln(' | |    / __ \     | |  /\      ');
-  gotoxy (50,3);
+  gotoxy (60,3);
   writeln(' | |   | |  | |    | | /  \     ');
-  gotoxy (50,4);
+  gotoxy (60,4);
   writeln(' | |   | |  | |_   | |/ /\ \    ');
-  gotoxy (50,5);
+  gotoxy (60,5);
   writeln(' | |___| |__| | |__| / ____ \   ');
-  gotoxy (50,6);
+  gotoxy (60,6);
   writeln(' |______\____/ \____/_/    \_\  ');
+  
+  gotoxy (1,9);
+  writeln('  _          ___  _   _ ___  ___   ');
+  gotoxy (1,10);
+  writeln(' / |  ___   / _ \| | | | _ \/ _ \  ');
+  gotoxy (1,11);
+  writeln(' | | |___| | (_) | |_| |   / (_) | ');
+  gotoxy (1,12);
+  writeln(' |_|        \___/ \___/|_|_\\___/  ');
+  
+  gotoxy(1,15);
+  writeln('          .--------::::::::-       ');
+  gotoxy(1,16);
+  writeln('      .--..:::::::://::::::---:-   ');
+  gotoxy(1,17);
+  writeln('      -:..-:--:::://:::::::-../:   ');
+  gotoxy(1,18);
+  writeln('      `:.  ---:/  _  ///:::  -/`   ');
+  gotoxy(1,19);
+  writeln('       .:  .--:: / | //::/- `/-    ');
+  gotoxy(1,20);
+  writeln('        --``---: | | /:///` :-     ');
+  gotoxy(1,21);
+  writeln('         .-..:-: |_| ////-.:.      ');
+  gotoxy(1,22);
+  writeln('           .--::    ///:-.         ');
+  gotoxy(1,23);
+  writeln('              `-:::///:`           ');
+  gotoxy(1,24);
+  writeln('               -::://+:            ');
+  gotoxy(1,25);
+  writeln('                -:://-`            ');
+  gotoxy(1,26);
+  writeln('                 -://              ');
+  gotoxy(1,27);
+  writeln('                `:/+/`             ');
+  gotoxy(1,28);
+  writeln('              `::::////`           ');
+  gotoxy(1,29);
+  writeln('          `---++++++++oo---        ');
+  gotoxy(1,30);
+  writeln('          `yhhyyyyyyssyyhhy`       ');
+  gotoxy(1,31);
+  writeln('           yhs::::::::::+hy        ');
+  
+  gotoxy(1,35);
+  writeln('  ___  __    ___ _____ ___   ');
+  gotoxy(1,36);
+  writeln(' / _ \/  \  | _ \_   _/ __|  ');
+  gotoxy(1,37);
+  writeln(' \_, / () | |  _/ | | \__ \  ');
+  gotoxy(1,38);
+  writeln('  /_/ \__/  |_|   |_| |___/  ');
+  
+  
+  
+  gotoxy (50,9);
+  writeln('  ___         ___ ___    _ _____ _     ');
+  gotoxy (50,10);
+  writeln(' |_  )  ___  | _ \ _ \  /_\_   _/_\    ');
+  gotoxy (50,11);
+  writeln('  / /  |___| |  _/   / / _ \| |/ _ \   ');
+  gotoxy (50,12);
+  writeln(' /___|       |_| |_|_\/_/ \_\_/_/ \_\  ');
+  
+  gotoxy(50,15);
+  writeln('          .--------::::::::-         ');
+  gotoxy(50,16);
+  writeln('      .--..:::::::://::::::---:-     ');
+  gotoxy(50,17);
+  writeln('      -:..-:--:::://:::::::-../:     ');
+  gotoxy(50,18);
+  writeln('      `:.  ---:/ ___  ///:::  -/`    ');
+  gotoxy(50,19);
+  writeln('       .:  .--: |_  ) //::/- `/-     ');
+  gotoxy(50,20);
+  writeln('        --``---  / /  /:///` :-      ');
+  gotoxy(50,21);
+  writeln('         .-..:- /___| ////-.:.       ');
+  gotoxy(50,22);
+  writeln('           .--::    ///:-.           ');
+  gotoxy(50,23);
+  writeln('              `-:::///:`             ');
+  gotoxy(50,24);
+  writeln('               -::://+:              ');
+  gotoxy(50,25);
+  writeln('                -:://-`              ');
+  gotoxy(50,26);
+  writeln('                 -://                ');
+  gotoxy(50,27);
+  writeln('                `:/+/`               ');
+  gotoxy(50,28);
+  writeln('              `::::////`             ');
+  gotoxy(50,29);
+  writeln('          `---++++++++oo---          ');
+  gotoxy(50,30);
+  writeln('          `yhhyyyyyyssyyhhy`         ');
+  gotoxy(50,31);
+  writeln('           yhs::::::::::+hy          ');
+  
+  gotoxy(55,35);
+  writeln('   __  __    ___ _____ ___    ');
+  gotoxy(55,36);
+  writeln('  / / /  \  | _ \_   _/ __|   ');
+  gotoxy(55,37);
+  writeln(' / _ \ () | |  _/ | | \__ \   ');
+  gotoxy(55,38);
+  writeln(' \___/\__/  |_|   |_| |___/   ');
+  
+  
+  gotoxy (105,9);
+  writeln('  ____        ___ ___  ___  _  _ _______   ');
+  gotoxy (105,10);
+  writeln(' |__ /  ___  | _ ) _ \/ _ \| \| |_  / __|  ');
+  gotoxy (105,11);
+  writeln('  |_ \ |___| | _ \   / (_) | .` |/ /| _|   ');
+  gotoxy (105,12);
+  writeln(' |___/       |___/_|_\\___/|_|\_/___|___|  ');
+  
+  gotoxy(105,15);
+  writeln('          .--------::::::::-       ');
+  gotoxy(105,16);
+  writeln('      .--..:::::::://::::::---:-   ');
+  gotoxy(105,17);
+  writeln('      -:..-:--:::://:::::::-../:   ');
+  gotoxy(105,18);
+  writeln('      `:.  ---:/ ____  ///:::  -/` ');
+  gotoxy(105,19);
+  writeln('       .:  .--: |__ / //::/- `/-   ');
+  gotoxy(105,20);
+  writeln('        --``---  |_ \  /:///` :-   ');
+  gotoxy(105,21);
+  writeln('         .-..:- |___/ ////-.:.     ');
+  gotoxy(105,22);
+  writeln('           .--::    ///:-.         ');
+  gotoxy(105,23);
+  writeln('              `-:::///:`           ');
+  gotoxy(105,24);
+  writeln('               -::://+:            ');
+  gotoxy(105,25);
+  writeln('                -:://-`            ');
+  gotoxy(105,26);
+  writeln('                 -://              ');
+  gotoxy(105,27);
+  writeln('                `:/+/`             ');
+  gotoxy(105,28);
+  writeln('              `::::////`           ');
+  gotoxy(105,29);
+  writeln('          `---++++++++oo---        ');
+  gotoxy(105,30);
+  writeln('          `yhhyyyyyyssyyhhy`       ');
+  gotoxy(105,31);
+  writeln('           yhs::::::::::+hy        ');
+  
+  gotoxy(110,35);
+  writeln('  ____ __    ___ _____ ___    ');
+  gotoxy(110,36);
+  writeln(' |__ //  \  | _ \_   _/ __|   ');
+  gotoxy(110,37);
+  writeln('  |_ \ () | |  _/ | | \__ \   ');
+  gotoxy(110,38);
+  writeln(' |___/\__/  |_|   |_| |___/   ');
+  
 end;
 
 procedure painel_dica();
@@ -1141,70 +1304,71 @@ begin
     3:
     begin
       painel_loja();
-      writeln('Escolha sua opção de acordo com seus Pontos');
-      gotoxy(1,26);
-      writeln('1: Para Premio Prata');
-      gotoxy(1,28);
-      writeln('2: Para Premio Ouro');
-      gotoxy(1,30);
-      writeln('3: Para Premio Platina');
-      
-      
-      writeln();
-      writeln(' ');
-      gotoxy(1,32);
-      writeln ('Você tem: ',pontos,' pontos');
-      
-      
-      gotoxy(4,5);
-      writeln('=');
-      gotoxy(20,5);
-      writeln('=');
-      gotoxy(4,6);
-      writeln('=================');
-      gotoxy(4,4);
-      writeln('=================');
-      gotoxy(5,5);
-      writeln ('Premio Prata');
-      gotoxy(5,8);
-      writeln('30 Pontos');
-      
-      gotoxy(23,5);
-      writeln('=');
-      gotoxy(39,5);
-      writeln('=');
-      gotoxy(23,4);
-      writeln('=================');
-      gotoxy(23,6);
-      writeln('=================');
-      gotoxy(25,5);
-      writeln('Premio Ouro');
-      gotoxy(25,8);
-      writeln('60 Pontos');
-      
-      
-      gotoxy(43,5);
-      writeln('=');
-      gotoxy(59,5);
-      writeln('=');
-      gotoxy(43,4);
-      writeln('=================');
-      gotoxy(43,6);
-      writeln('=================');
-      gotoxy(45,5);
-      writeln('Premio Platina');
-      gotoxy(45,8);
-      writeln('90 Pontos');
-      
-      gotoxy(1,20);
       readln(opcao_loja);
       
-      if (opcao_loja = 1) and (pontos >= 30) then
+      if (opcao_loja = 3) and (pontos >= 30) then
       begin
-        gotoxy(5,12);
-        writeln('Premio Prata: ');
-        gotoxy(5,14);
-        writeln('APOSTILA C - https://goo.gl/7LoHKt');
+        clrscr;
+        gotoxy (50,1);
+        writeln('  ___ ___ ___ __  __ ___ ___    ___ ___  ___  _  _ _______   ');
+        gotoxy (50,2);
+        writeln(' | _ \ _ \ __|  \/  |_ _/ _ \  | _ ) _ \/ _ \| \| |_  / __|  ');
+        gotoxy (50,3);
+        writeln(' |  _/   / _|| |\/| || | (_) | | _ \   / (_) | .` |/ /| _|   ');
+        gotoxy (50,4);
+        writeln(' |_| |_|_\___|_|  |_|___\___/  |___/_|_\\___/|_|\_/___|___|  ');
+        
+        gotoxy(60,7);
+        writeln('          .--------::::::::-       ');
+        gotoxy(60,8);
+        writeln('      .--..:::::::://::::::---:-   ');
+        gotoxy(60,9);
+        writeln('      -:..-:--:::://:::::::-../:   ');
+        gotoxy(60,10);
+        writeln('      `:.  ---:/ ____  ///:::  -/` ');
+        gotoxy(60,11);
+        writeln('       .:  .--: |__ / //::/- `/-   ');
+        gotoxy(60,12);
+        writeln('        --``---  |_ \  /:///` :-   ');
+        gotoxy(60,13);
+        writeln('         .-..:- |___/ ////-.:.     ');
+        gotoxy(60,14);
+        writeln('           .--::    ///:-.         ');
+        gotoxy(60,15);
+        writeln('              `-:::///:`           ');
+        gotoxy(60,16);
+        writeln('               -::://+:            ');
+        gotoxy(60,17);
+        writeln('                -:://-`            ');
+        gotoxy(60,18);
+        writeln('                 -://              ');
+        gotoxy(60,19);
+        writeln('                `:/+/`             ');
+        gotoxy(60,20);
+        writeln('              `::::////`           ');
+        gotoxy(60,21);
+        writeln('          `---++++++++oo---        ');
+        gotoxy(60,22);
+        writeln('          `yhhyyyyyyssyyhhy`       ');
+        gotoxy(60,23);
+        writeln('           yhs::::::::::+hy        ');
+        
+        gotoxy(1,29);
+        writeln('    _   ___  ___  ___ _____ ___ _      _            ___   ');
+        gotoxy(1,30);
+        writeln('   /_\ | _ \/ _ \/ __|_   _|_ _| |    /_\    ___   / __|  ');
+        gotoxy(1,31);
+        writeln('  / _ \|  _/ (_) \__ \ | |  | || |__ / _ \  |___| | (__   ');
+        gotoxy(1,32);
+        writeln(' /_/ \_\_|  \___/|___/ |_| |___|____/_/ \_\        \___|  ');
+        
+        writeln('  _     _   _                  ____                      _    _______ _          _   _ _  ___     ');
+        writeln(' | |__ | |_| |_ _ __  ___ _   / / /_ _  ___   ___   __ _| |  / /___  | |    ___ | | | | |/ / |_   ');
+        writeln(' |  _ \| __| __| |_ \/ __(_) / / / _` |/ _ \ / _ \ / _` | | / /   / /| |   / _ \| |_| | ` /| __|  ');
+        writeln(' | | | | |_| |_| |_) \__ \_ / / / (_| | (_) | (_) | (_| | |/ /   / / | |__| (_) |  _  | . \| |_   ');
+        writeln(' |_| |_|\__|\__| .__/|___(_)_/_/ \__, |\___/ \___(_)__, |_/_/   /_/  |_____\___/|_| |_|_|\_\\__|  ');
+        writeln('               |_|               |___/             |___/                                          ');
+        
         pontos:= pontos - 30;
         writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
         readln (opcao);
@@ -1220,7 +1384,7 @@ begin
         end;
       end
       else
-      if (opcao_loja = 1) and (pontos < 30) then
+      if (opcao_loja = 3) and (pontos < 30) then
       begin
         writeln ('Pontos insuficientes');
         writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
@@ -1241,7 +1405,7 @@ begin
       if (opcao_loja = 2) and (pontos >= 60) then
       begin
         gotoxy(5,12);
-        writeln('Premio Ouro: ');
+        writeln('Premio Prata: ');
         gotoxy(5,14);
         writeln('APOSTILA HTML5 - https://goo.gl/SUac3C');
         writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
@@ -1276,10 +1440,10 @@ begin
       end
       
       else
-      if (opcao_loja = 3) and (pontos >= 90) then
+      if (opcao_loja = 1) and (pontos >= 90) then
       begin
         gotoxy(5,12);
-        writeln('Premio Platina: ');
+        writeln('Premio Ouro: ');
         gotoxy(5,14);
         writeln('APOSTILA JAVA - https://goo.gl/FCcR4W');
         writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
@@ -1296,7 +1460,7 @@ begin
         end;
       end
       else
-      if (opcao_loja = 3) and (pontos < 90) then
+      if (opcao_loja = 1) and (pontos < 90) then
       begin
         writeln ('Pontos insuficientes');
         writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
