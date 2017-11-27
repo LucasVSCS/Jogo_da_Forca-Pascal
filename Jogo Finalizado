@@ -1,0 +1,1811 @@
+Program Judas ;
+
+//Adiciona a biblioteca crt para que possar ser usado o comando clrscr
+uses
+crt;
+
+var
+//Variável onde serão armazenadas as perguntas do jogo
+ resposta: array[1..12] of string;
+//Variável onde serão armazenadas as respostas do jogo
+ pergunta: array[1..12] of string;
+ 
+//Em ordem: variável para receber a opção desejada no menu, no menu de assuntos, no de dificuldades, na loja, os pontos do jogo,... 
+ //a quantidade de tentativas que vão determinar a forca, e o contador das perguntas/repostas
+  opcao_menu, opcao_assunto, opcao_dificuldade, opcao_loja, pontos, tentativa, i: integer;
+  
+//Variável para receber a resposta digitada pelo usuário se caso ele deseja voltar para o menu ou não
+ opcao: char;
+
+//Variável para receber a resposta digitada pelo usuário referente as perguntas do jogo
+ resp: string;
+
+//Inicio da declaração dos procedimentos
+//Procedimento para a ASCII ART e suas coordenadas de posição no painel de instruções
+procedure painel_instrucoes();
+begin
+  gotoxy (50,1);
+  writeln('  _____ _   _  _____ _______ _____  _    _  _____ /\/| ______  _____  ');
+  gotoxy (50,2);
+  writeln(' |_   _| \ | |/ ____|__   __|  __ \| |  | |/ ____|/\/ |  ____|/ ____| ');
+  gotoxy (50,3);
+  writeln('   | | |  \| | (___    | |  | |__) | |  | | |    / _ \| |__  | (___   ');
+  gotoxy (50,4);
+  writeln('   | | | . ` |\___ \   | |  |  _  /| |  | | |   | | | |  __|  \___ \  ');
+  gotoxy (50,5);
+  writeln('  _| |_| |\  |____) |  | |  | | \ \| |__| | |___| |_| | |____ ____) | ');
+  gotoxy (50,6);
+  writeln(' |_____|_| \_|_____/   |_|  |_|  \_\\____/ \_____\___/|______|_____/  ');
+  gotoxy (50,7);
+  writeln('                                             )_)                      ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição da loja do jogo
+procedure painel_loja();
+begin
+  //ASCII ART e suas coordenadas de posição do nome da loja
+  gotoxy (60,1);
+  writeln('  _      ____       _           ');
+  gotoxy (60,2);
+  writeln(' | |    / __ \     | |  /\      ');
+  gotoxy (60,3);
+  writeln(' | |   | |  | |    | | /  \     ');
+  gotoxy (60,4);
+  writeln(' | |   | |  | |_   | |/ /\ \    ');
+  gotoxy (60,5);
+  writeln(' | |___| |__| | |__| / ____ \   ');
+  gotoxy (60,6);
+  writeln(' |______\____/ \____/_/    \_\  ');
+  
+  //ASCII ART e suas coordenadas de posição do primeiro prêmio, ouro
+  gotoxy (1,9);
+  writeln('  _          ___  _   _ ___  ___   ');
+  gotoxy (1,10);
+  writeln(' / |  ___   / _ \| | | | _ \/ _ \  ');
+  gotoxy (1,11);
+  writeln(' | | |___| | (_) | |_| |   / (_) | ');
+  gotoxy (1,12);
+  writeln(' |_|        \___/ \___/|_|_\\___/  ');
+  
+  //ASCII ART e suas coordenadas de posição do trofeu do primeiro prêmio, ouro
+  textcolor(yellow);
+  gotoxy(1,15);
+  writeln('          .--------::::::::-       ');
+  gotoxy(1,16);
+  writeln('      .--..:::::::://::::::---:-   ');
+  gotoxy(1,17);
+  writeln('      -:..-:--:::://:::::::-../:   ');
+  gotoxy(1,18);
+  writeln('      `:.  ---:/  _  ///:::  -/`   ');
+  gotoxy(1,19);
+  writeln('       .:  .--:: / | //::/- `/-    ');
+  gotoxy(1,20);
+  writeln('        --``---: | | /:///` :-     ');
+  gotoxy(1,21);
+  writeln('         .-..:-: |_| ////-.:.      ');
+  gotoxy(1,22);
+  writeln('           .--::    ///:-.         ');
+  gotoxy(1,23);
+  writeln('              `-:::///:`           ');
+  gotoxy(1,24);
+  writeln('               -::://+:            ');
+  gotoxy(1,25);
+  writeln('                -:://-`            ');
+  gotoxy(1,26);
+  writeln('                 -://              ');
+  gotoxy(1,27);
+  writeln('                `:/+/`             ');
+  gotoxy(1,28);
+  writeln('              `::::////`           ');
+  gotoxy(1,29);
+  writeln('          `---++++++++oo---        ');
+  gotoxy(1,30);
+  writeln('          `yhhyyyyyyssyyhhy`       ');
+  gotoxy(1,31);
+  writeln('           yhs::::::::::+hy        '); 
+  textcolor(white);
+  
+  //ASCII ART e suas coordenadas de posição da quantidade de pontos necessários para o primeiro prêmio, ouro
+  gotoxy(1,35);
+  writeln('  ___  __    ___ _____ ___   ');
+  gotoxy(1,36);
+  writeln(' / _ \/  \  | _ \_   _/ __|  ');
+  gotoxy(1,37);
+  writeln(' \_, / () | |  _/ | | \__ \  ');
+  gotoxy(1,38);
+  writeln('  /_/ \__/  |_|   |_| |___/  ');
+    
+  //ASCII ART e suas coordenadas de posição do segundo prêmio, prata
+  gotoxy (50,9);
+  writeln('  ___         ___ ___    _ _____ _     ');
+  gotoxy (50,10);
+  writeln(' |_  )  ___  | _ \ _ \  /_\_   _/_\    ');
+  gotoxy (50,11);
+  writeln('  / /  |___| |  _/   / / _ \| |/ _ \   ');
+  gotoxy (50,12);
+  writeln(' /___|       |_| |_|_\/_/ \_\_/_/ \_\  ');
+  
+  //ASCII ART e suas coordenadas de posição do trofeu do segundo prêmio, prata
+  textcolor(darkgray);
+  gotoxy(50,15);
+  writeln('          .--------::::::::-         ');
+  gotoxy(50,16);
+  writeln('      .--..:::::::://::::::---:-     ');
+  gotoxy(50,17);
+  writeln('      -:..-:--:::://:::::::-../:     ');
+  gotoxy(50,18);
+  writeln('      `:.  ---:/ ___  ///:::  -/`    ');
+  gotoxy(50,19);
+  writeln('       .:  .--: |_  ) //::/- `/-     ');
+  gotoxy(50,20);
+  writeln('        --``---  / /  /:///` :-      ');
+  gotoxy(50,21);
+  writeln('         .-..:- /___| ////-.:.       ');
+  gotoxy(50,22);
+  writeln('           .--::    ///:-.           ');
+  gotoxy(50,23);
+  writeln('              `-:::///:`             ');
+  gotoxy(50,24);
+  writeln('               -::://+:              ');
+  gotoxy(50,25);
+  writeln('                -:://-`              ');
+  gotoxy(50,26);
+  writeln('                 -://                ');
+  gotoxy(50,27);
+  writeln('                `:/+/`               ');
+  gotoxy(50,28);
+  writeln('              `::::////`             ');
+  gotoxy(50,29);
+  writeln('          `---++++++++oo---          ');
+  gotoxy(50,30);
+  writeln('          `yhhyyyyyyssyyhhy`         ');
+  gotoxy(50,31);
+  writeln('           yhs::::::::::+hy          ');  
+  textcolor(white);
+
+  //ASCII ART e suas coordenadas de posição da quantidade de pontos necessários para o segundo prêmio, prata
+  gotoxy(55,35);
+  writeln('   __  __    ___ _____ ___    ');
+  gotoxy(55,36);
+  writeln('  / / /  \  | _ \_   _/ __|   ');
+  gotoxy(55,37);
+  writeln(' / _ \ () | |  _/ | | \__ \   ');
+  gotoxy(55,38);
+  writeln(' \___/\__/  |_|   |_| |___/   ');
+  
+  //ASCII ART e suas coordenadas de posição do terceiro prêmio, bronze
+  gotoxy (105,9);
+  writeln('  ____        ___ ___  ___  _  _ _______   ');
+  gotoxy (105,10);
+  writeln(' |__ /  ___  | _ ) _ \/ _ \| \| |_  / __|  ');
+  gotoxy (105,11);
+  writeln('  |_ \ |___| | _ \   / (_) | .` |/ /| _|   ');
+  gotoxy (105,12);
+  writeln(' |___/       |___/_|_\\___/|_|\_/___|___|  ');
+  
+  //ASCII ART e suas coordenadas de posição do trofeu do terceiro prêmio, bronze
+  textcolor(brown);
+  gotoxy(105,15);
+  writeln('          .--------::::::::-       ');
+  gotoxy(105,16);
+  writeln('      .--..:::::::://::::::---:-   ');
+  gotoxy(105,17);
+  writeln('      -:..-:--:::://:::::::-../:   ');
+  gotoxy(105,18);
+  writeln('      `:.  ---:/ ____  ///:::  -/` ');
+  gotoxy(105,19);
+  writeln('       .:  .--: |__ / //::/- `/-   ');
+  gotoxy(105,20);
+  writeln('        --``---  |_ \  /:///` :-   ');
+  gotoxy(105,21);
+  writeln('         .-..:- |___/ ////-.:.     ');
+  gotoxy(105,22);
+  writeln('           .--::    ///:-.         ');
+  gotoxy(105,23);
+  writeln('              `-:::///:`           ');
+  gotoxy(105,24);
+  writeln('               -::://+:            ');
+  gotoxy(105,25);
+  writeln('                -:://-`            ');
+  gotoxy(105,26);
+  writeln('                 -://              ');
+  gotoxy(105,27);
+  writeln('                `:/+/`             ');
+  gotoxy(105,28);
+  writeln('              `::::////`           ');
+  gotoxy(105,29);
+  writeln('          `---++++++++oo---        ');
+  gotoxy(105,30);
+  writeln('          `yhhyyyyyyssyyhhy`       ');
+  gotoxy(105,31);
+  writeln('           yhs::::::::::+hy        ');
+  textcolor(white);
+  
+  //ASCII ART e suas coordenadas de posição da quantidade de pontos necessários para o terceiro prêmio, bronze
+	gotoxy(110,35);
+  writeln('  ____ __    ___ _____ ___    ');
+  gotoxy(110,36);
+  writeln(' |__ //  \  | _ \_   _/ __|   ');
+  gotoxy(110,37);
+  writeln('  |_ \ () | |  _/ | | \__ \   ');
+  gotoxy(110,38);
+  writeln(' |___/\__/  |_|   |_| |___/   '); 
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição da palavra 'Dica' que sera exibida acima da forca
+procedure painel_dica();
+begin
+  gotoxy (60,1);
+  writeln('  _____ _____ _____             ');
+  gotoxy (60,2);
+  writeln(' |  __ \_   _/ ____|   /\       ');
+  gotoxy (60,3);
+  writeln(' | |  | || || |       /  \      ');
+  gotoxy (60,4);
+  writeln(' | |  | || || |      / /\ \     ');
+  gotoxy (60,5);
+  writeln(' | |__| || || |____ / ____ \    ');
+  gotoxy (60,6);
+  writeln(' |_____/_____\_____/_/    \_\   ');
+end;
+
+//Procedimento para a ASCII ART do menu de dificuldades
+procedure painel_dificuldades();
+begin
+  //Comandos 'writeln' utilizados para espaçamento
+  writeln;
+  writeln;
+  writeln;
+  
+  //ASCII ART da palavra 'Dificuldades' que sera exibida no menu de escolha de dificuldades
+  writeln('  ___ ___ ___ ___ ___ _   _ _    ___   _   ___  ___ ___  ');
+  writeln(' |   \_ _| __|_ _/ __| | | | |  |   \ /_\ |   \| __/ __| ');
+  writeln(' | |) | || _| | | (__| |_| | |__| |) / _ \| |) | _|\__ \ ');
+  writeln(' |___/___|_| |___\___|\___/|____|___/_/ \_\___/|___|___/ ');
+  
+  //Comandos 'writeln' utilizados para espaçamento
+	writeln;
+  writeln;
+  writeln;
+  
+  //ASCII ART da palavra 'Fácil' que sera exibida no menu de escolha de dificuldades
+  writeln('  _         ___ __ ___ ___ _     ');
+  writeln(' / |  ___  | __/_// __|_ _| |    ');
+  writeln(' | | |___| | _/--\ (__ | || |__  ');
+  writeln(' |_|       |_/_/\_\___|___|____| ');
+  
+  //ASCII ART da palavra 'Intermediário' que sera exibida no menu de escolha de dificuldades
+  writeln('  ___         ___ _  _ _____ ___ ___ __  __ ___ ___ ___   __ ___ ___ ___    ');
+  writeln(' |_  )  ___  |_ _| \| |_   _| __| _ \  \/  | __|   \_ _| /_/| _ \_ _/ _ \   ');
+  writeln('  / /  |___|  | || .` | | | | _||   / |\/| | _|| |) | | /--\|   /| | (_) |  ');
+  writeln(' /___|       |___|_|\_| |_| |___|_|_\_|  |_|___|___/___/_/\_\_|_\___\___/   ');
+  
+  //ASCII ART da palavra 'Dificil' que sera exibida no menu de escolha de dificuldades
+  writeln('  ____        ___ ___ ___ __  ___ ___ _    ');
+  writeln(' |__ /  ___  |   \_ _| __/_/ / __|_ _| |   ');
+  writeln('  |_ \ |___| | |) | || _|_ _| (__ | || |__ ');
+  writeln(' |___/       |___/___|_||___|\___|___|____|');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição da frase caso o usuário acerte as perguntas do jogo
+procedure painel_acerto();
+begin
+  gotoxy(35,1);
+  writeln('  ___  _   ___    _   ___ ___ _  _ ___  __   _____   ___ ___     _   ___ ___ ___ _____ ___  _   _  ');
+  gotoxy(35,2);
+  writeln(' | _ \/_\ | _ \  /_\ | _ ) __| \| / __| \ \ / / _ \ / __| __|   /_\ / __| __| _ \_   _/ _ \| | | | ');
+  gotoxy(35,3);
+  writeln(' |  _/ _ \|   / / _ \| _ \ _|| .` \__ \  \ V / (_) | (__| _|   / _ \ (__| _||   / | || (_) | |_| | ');
+  gotoxy(35,4);
+  writeln(' |_|/_/ \_\_|_\/_/ \_\___/___|_|\_|___/   \_/ \___/ \___|___| /_/ \_\___|___|_|_\ |_| \___/ \___/  ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição da frase caso o usuário perca no jogo
+procedure painel_erro();
+begin
+  gotoxy(35,1);
+  writeln(' __      ______   _____ ______   _____  ______ _____  _____  ______ _    _  ');
+  gotoxy(35,2);
+  writeln(' \ \    / / __ \ / ____|  ____| |  __ \|  ____|  __ \|  __ \|  ____| |  | | ');
+  gotoxy(35,3);
+  writeln('  \ \  / / |  | | |    | |__    | |__) | |__  | |__) | |  | | |__  | |  | | ');
+  gotoxy(35,4);
+  writeln('   \ \/ /| |  | | |    |  __|   |  ___/|  __| |  _  /| |  | |  __| | |  | | ');
+  gotoxy(35,5);
+  writeln('    \  / | |__| | |____| |____  | |    | |____| | \ \| |__| | |____| |__| | ');
+  gotoxy(35,6);
+  writeln('     \/   \____/ \_____|______| |_|    |______|_|  \_\_____/|______|\____/  ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição da frase de adição de pontos caso o usuário acerte alguma pergunta 
+procedure painel_pontos();
+begin
+  gotoxy(100,15);
+  writeln('    _     _  __    ___  ___  _  _ _____ ___  ___   ');
+  gotoxy(100,16);
+  writeln('  _| |_  / |/  \  | _ \/ _ \| \| |_   _/ _ \/ __|  ');
+  gotoxy(100,17);
+  writeln(' |_   _| | | () | |  _/ (_) | .` | | || (_) \__ \  ');
+  gotoxy(100,18);
+  writeln('   |_|   |_|\__/  |_|  \___/|_|\_| |_| \___/|___/  ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição da frase informando ao usuário que seus pontos foram zerados
+procedure painel_pontos_zerado();
+begin
+  gotoxy(100,15);
+  writeln('  ___  ___  _  _ _____ ___  ___   _______ ___    _   ___   ___  ___  ');
+  gotoxy(100,16);
+  writeln(' | _ \/ _ \| \| |_   _/ _ \/ __| |_  / __| _ \  /_\ |   \ / _ \/ __| ');
+  gotoxy(100,17);
+  writeln(' |  _/ (_) | .` | | || (_) \__ \  / /| _||   / / _ \| |) | (_) \__ \ ');
+  gotoxy(100,18);
+  writeln(' |_|  \___/|_|\_| |_| \___/|___/ /___|___|_|_\/_/ \_\___/ \___/|___/ ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte do boneco caso o usuário acerta a pergunta
+procedure boneco_feliz();
+begin
+  gotoxy(50,6);
+  writeln ('                     /shddhs/         +NMd`    ');
+  gotoxy(50,7);
+  writeln ('                   /NMMMMMMMMN/     `hMMMm`    ');
+  gotoxy(50,8);
+  writeln ('                  :MMMMMMMMMMMM:   -mMMMd`     ');
+  gotoxy(50,9);
+  writeln ('                  sMMMMMMMMMMMMs  oMMMMd`      ');
+  gotoxy(50,10);
+  writeln ('                  :MMMMMMMMMMMM:`hMMMMh`       ');
+  gotoxy(50,11);
+  writeln ('        -+/-`      :mMMMMMMMMm:/NMMMMy         ');
+  gotoxy(50,12);
+  writeln ('       .MMMMMMmhyo/:.:ohddho:-hMMMMMy          ');
+  gotoxy(50,13);
+  writeln ('        :sdNMMMMMMMMMMmdyssymMMMMMMs           ');
+  gotoxy(50,14);
+  writeln ('            .:oymMMMMMMMMMMMMMMMMMMo           ');
+  gotoxy(50,15);
+  writeln ('                 `-+sdNMMMMMMMMMMMMM/          ');
+  gotoxy(50,16);
+  writeln ('                       .dMMMMMMMMMMMN`         ');
+  gotoxy(50,17);
+  writeln ('                        -MMMMMMMMMMMMs         ');
+  gotoxy(50,18);
+  writeln ('                         hMMMMMMMMMMMM`        ');
+  gotoxy(50,19);
+  writeln ('                         +MMMMMMMMMMMM+        ');
+  gotoxy(50,20);
+  writeln ('                         :MMMMMMMMMMMMh        ');
+  gotoxy(50,21);
+  writeln ('                         :MMMMMMMMMMMMm        ');
+  gotoxy(50,22);
+  writeln ('                         .MMMMMMMMMMMMN`       ');
+  gotoxy(50,23);
+  writeln ('                          dMMMMMMMMMMMMy       ');
+  gotoxy(50,24);
+  writeln ('                          mMMMMMMMMMMMMM:      ');
+  gotoxy(50,25);
+  writeln ('                         `MMMMMMs:NMMMMMm      ');
+  gotoxy(50,26);
+  writeln ('                         :MMMMMN` -MMMMMM:     ');
+  gotoxy(50,27);
+  writeln ('               /ss/-     yMMMMMo `hMMMMMMy     ');
+  gotoxy(50,28);
+  writeln ('              /MMMMMMmhhhMMMMMd  .MMMMMMMh     ');
+  gotoxy(50,29);
+  writeln ('              `odMMMMMMMMMMMMh`   -mMMMMMs     ');
+  gotoxy(50,30);
+  writeln ('                 `:oydNMMNmy:       :oys/      ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte do boneco caso o usuário erre a pergunta
+procedure boneco();
+begin
+  gotoxy (50,8);
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  gotoxy (50,9);
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  gotoxy (50,10);
+  writeln('          hM         :dMMMy.         mMMo        ');
+  gotoxy (50,11);
+  writeln('          hM           :dMMMy.       mMMo        ');
+  gotoxy (50,12);
+  writeln('          hM             :dMMMy.     mMMo        ');
+  gotoxy (50,13);
+  writeln('          hM               :dMMMy.   mMMo        ');
+  gotoxy (50,14);
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  gotoxy (50,15);
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  gotoxy (50,16);
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  gotoxy (50,17);
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  gotoxy (50,18);
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  gotoxy (50,19);
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  gotoxy (50,20);
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  gotoxy (50,21);
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  gotoxy (50,21);
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  gotoxy (50,22);
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  gotoxy (50,23);
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  gotoxy (50,24);
+  writeln('    ``  NMM MMM`                      NMMs       ');
+  gotoxy (50,25);
+  writeln('       `MMM MMM.                     yMMMM/      ');
+  gotoxy (50,26);
+  writeln('       :MMM MMM-                    sMMMMMM/     ');
+  gotoxy (50,27);
+  writeln('       sMMN MMM+                   oMMMMMMMM/    ');
+  gotoxy (50,28);
+  writeln('       hMMy mMMs                  /MMMMMMNMMM:   ');
+  gotoxy (50,29);
+  writeln('       yMM/ hMMs                 :MMMomMMosMMM:  ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte da forca
+procedure forca();
+begin
+  gotoxy (50,8);
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  gotoxy (50,9);
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  gotoxy (50,10);
+  writeln('          hM         :dMMMy.         mMMo        ');
+  gotoxy (50,11);
+  writeln('          hM           :dMMMy.       mMMo        ');
+  gotoxy (50,12);
+  writeln('          hM             :dMMMy.     mMMo        ');
+  gotoxy (50,13);
+  writeln('          hM               :dMMMy.   mMMo        ');
+  gotoxy (50,14);
+  writeln('          hM                 :dMMMy. mMMo        ');
+  gotoxy (50,15);
+  writeln('                               :dMMMyNMMo        ');
+  gotoxy (50,16);
+  writeln('                                 :dMMMMMo        ');
+  gotoxy (50,17);
+  writeln('                                   :hMMMo        ');
+  gotoxy (50,18);
+  writeln('                                     mMMo        ');
+  gotoxy (50,19);
+  writeln('                                     mMMo        ');
+  gotoxy (50,20);
+  writeln('                                     mMMo        ');
+  gotoxy (50,21);
+  writeln('                                     mMMo        ');
+  gotoxy (50,22);
+  writeln('                                     mMMo        ');
+  gotoxy (50,23);
+  writeln('                                     mMMo        ');
+  gotoxy (50,24);
+  writeln('                                     mMMo        ');
+  gotoxy (50,25);
+  writeln('                                     NMMs        ');
+  gotoxy (50,26);
+  writeln('                                    yMMMM/       ');
+  gotoxy (50,27);
+  writeln('                                   sMMMMMM/      ');
+  gotoxy (50,28);
+  writeln('                                  oMMMMMMMM/     ');
+  gotoxy (50,29);
+  writeln('                                 /MMMMMMNMMM:    ');
+  gotoxy (50,30);
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte do boneco caso o usuário erre a primeira resposta
+procedure boneco_cabeca();
+begin
+  gotoxy (50,8);
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  gotoxy (50,9);
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  gotoxy (50,10);
+  writeln('          hM         :dMMMy.         mMMo        ');
+  gotoxy (50,11);
+  writeln('          hM           :dMMMy.       mMMo        ');
+  gotoxy (50,12);
+  writeln('          hM             :dMMMy.     mMMo        ');
+  gotoxy (50,13);
+  writeln('          hM               :dMMMy.   mMMo        ');
+  gotoxy (50,14);
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  gotoxy (50,15);
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  gotoxy (50,16);
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  gotoxy (50,17);
+  writeln('   .NMMMMMMMmy                     :hMMMo        ');
+  gotoxy (50,18);
+  writeln('                                     mMMo        ');
+  gotoxy (50,19);
+  writeln('                                     mMMo        ');
+  gotoxy (50,20);
+  writeln('                                     mMMo        ');
+  gotoxy (50,21);
+  writeln('                                     mMMo        ');
+  gotoxy (50,22);
+  writeln('                                     mMMo        ');
+  gotoxy (50,23);
+  writeln('                                     mMMo        ');
+  gotoxy (50,24);
+  writeln('                                     mMMo        ');
+  gotoxy (50,25);
+  writeln('                                     NMMs        ');
+  gotoxy (50,26);
+  writeln('                                    yMMMM/       ');
+  gotoxy (50,27);
+  writeln('                                   sMMMMMM/      ');
+  gotoxy (50,28);
+  writeln('                                  oMMMMMMMM/     ');
+  gotoxy (50,29);
+  writeln('                                 /MMMMMMNMMM:    ');
+  gotoxy (50,30);
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte do boneco caso o usuário erre a segunda resposta
+procedure boneco_corpo();
+begin
+  gotoxy (50,8);
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  gotoxy (50,9);
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  gotoxy (50,10);
+  writeln('          hM         :dMMMy.         mMMo        ');
+  gotoxy (50,11);
+  writeln('          hM           :dMMMy.       mMMo        ');
+  gotoxy (50,12);
+  writeln('          hM             :dMMMy.     mMMo        ');
+  gotoxy (50,13);
+  writeln('          hM               :dMMMy.   mMMo        ');
+  gotoxy (50,14);
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  gotoxy (50,15);
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  gotoxy (50,16);
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  gotoxy (50,17);
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  gotoxy (50,18);
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  gotoxy (50,19);
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  gotoxy (50,20);
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  gotoxy (50,21);
+  writeln('       yNMMMMM/                      mMMo        ');
+  gotoxy (50,22);
+  writeln('       `NMMMMM:                      mMMo        ');
+  gotoxy (50,23);
+  writeln('        NMMMMM:                      mMMo        ');
+  gotoxy (50,24);
+  writeln('        NMMMMM-                      mMMo        ');
+  gotoxy (50,25);
+  writeln('                                     NMMs        ');
+  gotoxy (50,26);
+  writeln('                                    yMMMM/       ');
+  gotoxy (50,27);
+  writeln('                                   sMMMMMM/      ');
+  gotoxy (50,28);
+  writeln('                                  oMMMMMMMM/     ');
+  gotoxy (50,29);
+  writeln('                                 /MMMMMMNMMM:    ');
+  gotoxy (50,30);
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte do boneco caso o usuário erre a terceira resposta
+procedure boneco_braco1();
+begin
+  gotoxy (50,8);
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  gotoxy (50,9);
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  gotoxy (50,10);
+  writeln('          hM         :dMMMy.         mMMo        ');
+  gotoxy (50,11);
+  writeln('          hM           :dMMMy.       mMMo        ');
+  gotoxy (50,12);
+  writeln('          hM             :dMMMy.     mMMo        ');
+  gotoxy (50,13);
+  writeln('          hM               :dMMMy.   mMMo        ');
+  gotoxy (50,14);
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  gotoxy (50,15);
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  gotoxy (50,16);
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  gotoxy (50,17);
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  gotoxy (50,18);
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  gotoxy (50,19);
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  gotoxy (50,20);
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  gotoxy (50,21);
+  writeln('   `NMMyNMMMMM/                      mMMo        ');
+  gotoxy (50,22);
+  writeln('   oMMN`NMMMMM:                      mMMo        ');
+  gotoxy (50,23);
+  writeln('   yMMd NMMMMM:                      mMMo        ');
+  gotoxy (50,24);
+  writeln('   +MMy NMMMMM-                      mMMo        ');
+  gotoxy (50,25);
+  writeln('    ``                               NMMs        ');
+  gotoxy (50,26);
+  writeln('                                    yMMMM/       ');
+  gotoxy (50,27);
+  writeln('                                   sMMMMMM/      ');
+  gotoxy (50,28);
+  writeln('                                  oMMMMMMMM/     ');
+  gotoxy (50,29);
+  writeln('                                 /MMMMMMNMMM:    ');
+  gotoxy (50,30);
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte do boneco caso o usuário erre a quarta resposta
+procedure boneco_braco2();
+begin
+  gotoxy (50,8);
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  gotoxy (50,9);
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  gotoxy (50,10);
+  writeln('          hM         :dMMMy.         mMMo        ');
+  gotoxy (50,11);
+  writeln('          hM           :dMMMy.       mMMo        ');
+  gotoxy (50,12);
+  writeln('          hM             :dMMMy.     mMMo        ');
+  gotoxy (50,13);
+  writeln('          hM               :dMMMy.   mMMo        ');
+  gotoxy (50,14);
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  gotoxy (50,15);
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  gotoxy (50,16);
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  gotoxy (50,17);
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  gotoxy (50,18);
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  gotoxy (50,19);
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  gotoxy (50,20);
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  gotoxy (50,21);
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  gotoxy (50,22);
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  gotoxy (50,23);
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  gotoxy (50,24);
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  gotoxy (50,25);
+  writeln('    ``                               NMMs        ');
+  gotoxy (50,26);
+  writeln('                                    yMMMM/       ');
+  gotoxy (50,27);
+  writeln('                                   sMMMMMM/      ');
+  gotoxy (50,28);
+  writeln('                                  oMMMMMMMM/     ');
+  gotoxy (50,29);
+  writeln('                                 /MMMMMMNMMM:    ');
+  gotoxy (50,30);
+  writeln('                                :MMMomMMosMMM:   ');
+end;
+
+//Procedimento para a ASCII ART e suas coordenadas de posição relacionado a arte do boneco caso o usuário erre a quinta resposta
+procedure boneco_perna1();
+begin
+  gotoxy (50,8);
+  writeln('     /NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMo        ');
+  gotoxy (50,9);
+  writeln('     .syyyNMyyyyyyyydMMMMmyyyyyyyyyyyMMMo        ');
+  gotoxy (50,10);
+  writeln('          hM         :dMMMy.         mMMo        ');
+  gotoxy (50,11);
+  writeln('          hM           :dMMMy.       mMMo        ');
+  gotoxy (50,12);
+  writeln('          hM             :dMMMy.     mMMo        ');
+  gotoxy (50,13);
+  writeln('          hM               :dMMMy.   mMMo        ');
+  gotoxy (50,14);
+  writeln('      ..` hM                 :dMMMy. mMMo        ');
+  gotoxy (50,15);
+  writeln('    oNMMMmmM                   :dMMMyNMMo        ');
+  gotoxy (50,16);
+  writeln('   /MMMMMMMM                     :dMMMMMo        ');
+  gotoxy (50,17);
+  writeln('   .NMMMMMMMmy:                    :hMMMo        ');
+  gotoxy (50,18);
+  writeln('    `/hMMMMMMMMd.                    mMMo        ');
+  gotoxy (50,19);
+  writeln('     :NMMMMMMMMMN-                   mMMo        ');
+  gotoxy (50,20);
+  writeln('    :MMMMMMMMMNMMm                   mMMo        ');
+  gotoxy (50,21);
+  writeln('   `NMMyNMMMMM/MMM/                  mMMo        ');
+  gotoxy (50,22);
+  writeln('   oMMN`NMMMMM:dMMy                  mMMo        ');
+  gotoxy (50,23);
+  writeln('   yMMd NMMMMM:sMMm                  mMMo        ');
+  gotoxy (50,24);
+  writeln('   +MMy NMMMMM--dmy                  mMMo        ');
+  gotoxy (50,25);
+  writeln('    ``  NMM                           NMMs       ');
+  gotoxy (50,26);
+  writeln('       `MMM                          yMMMM/      ');
+  gotoxy (50,27);
+  writeln('       :MMM                         sMMMMMM/     ');
+  gotoxy (50,28);
+  writeln('       sMMN                        oMMMMMMMM/    ');
+  gotoxy (50,29);
+  writeln('       hMMy                       /MMMMMMNMMM:   ');
+  gotoxy (50,30);
+  writeln('       yMM/                      :MMMomMMosMMM:  ');
+end;
+
+//Procedimento para a condicional das perguntas, caso ele erre, o boneco ganha uma parte do corpo, caso ele acerte, ganha 10 pontos
+//e é solicitado se ele deseja voltar para o menu principal
+procedure condicional();
+begin
+  repeat
+    begin
+      tentativa := 0;
+      //Chama o procedimento da ASCII ART da forca
+      forca();
+      
+      //Mostra na tela a pergunta referente a dificuldade e o assunto digitado pelo usuário
+      writeln (pergunta[i]);
+      //Recebe e armazena a resposta digitada pelo usuário
+			readln (resp);
+      clrscr;
+      
+      //Caso a resposta digitada pelo usuário seja diferente da resposta da pergunta, começa a desenhar a forca
+      if (resp <> resposta[i]) then
+      begin
+        tentativa := tentativa + 1
+      end
+      //Caso a resposta digitada pelo usuário esteja certa, ele ganha 10 pontos e é feita a pergunta se ele deseja retornar ao menu
+      else
+      if (resp = resposta[i]) then
+      begin
+        painel_acerto();                    //Chama o procedimento da ASCII ART parabenizando o acerto
+        boneco_feliz();                      //Chama o procedimento da ASCII ART do boneco fora da forca
+        pontos := pontos + 10;                //O usuário recebe 10 pontos
+        painel_pontos();                       //Chama o procedimento da ASCII ART relacionado a adição de pontos
+        writeln ('Total de Pontos: ', pontos);  //Mostra na tela o total de pontos do usuário
+        
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+        if (opcao = 's') then
+        begin
+          exit  //Comando para voltar ao menu
+        end
+        //Caso digite 'n', o programa é encerrado
+        else
+        if (opcao = 'n') then
+        begin
+          halt;  //Comando para fechar o programa
+        end;
+      end;
+      
+      //Caso a resposta digitada pelo usuário seja diferente da resposta da pergunta, adiciona uma parte do boneco e novamente é feita a pergunta
+      if (tentativa = 1) then
+      begin
+        painel_dica();  //Chama o procedimento da ASCII ART da palavra 'Dica'
+        boneco_cabeca(); //Chama o procedimento da ASCII ART do boneco na forca
+        //Mostra na tela a pergunta referente a dificuldade e o assunto digitado pelo usuário
+        writeln (pergunta[i]);
+        //Recebe e armazena a resposta digitada pelo usuário
+        readln (resp);
+        
+        //Caso a resposta digitada pelo usuário esteja certa, ele ganha 10 pontos e é feita a pergunta se ele deseja retornar ao menu
+        if (resp = resposta[i]) then
+        begin
+          clrscr;                            //Limpa a tela
+          painel_acerto();                    //Chama o procedimento da ASCII ART parabenizando o acerto
+          boneco_feliz();                      //Chama o procedimento da ASCII ART do boneco fora da forca
+          pontos := pontos + 10;                //O usuário recebe 10 pontos
+          painel_pontos();                       //Chama o procedimento da ASCII ART relacionado a adição de pontos
+          writeln ('Total de Pontos: ', pontos);  //Mostra na tela o total de pontos do usuário
+          
+					//É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+					writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          //Caso digite 's', ele volta ao menu
+					if (opcao = 's') then
+          begin
+            exit  //Comando para voltar ao menu
+          end
+          //Caso digite 'n', o programa é encerrado
+					else
+          if (opcao = 'n') then
+          begin
+            halt; //Comando para fechar o programa
+          end;
+        end
+        
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 2) then
+      begin
+        clrscr;
+        painel_dica();
+        boneco_corpo();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          painel_acerto();
+          boneco_feliz();
+          pontos := pontos + 10;
+          painel_pontos();
+          writeln ('Total de Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 3) then
+      begin
+        clrscr;
+        painel_dica();
+        boneco_braco1();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          painel_acerto();
+          boneco_feliz();
+          pontos := pontos + 10;
+          painel_pontos();
+          writeln ('Total de Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 4) then
+      begin
+        clrscr;
+        painel_dica();
+        boneco_braco2();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          painel_acerto();
+          boneco_feliz();
+          pontos := pontos + 10;
+          painel_pontos();
+          writeln ('Total de Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      if (tentativa = 5) then
+      begin
+        clrscr;
+        painel_dica();
+        boneco_perna1();
+        writeln (pergunta[i]);
+        readln (resp);
+        if (resp = resposta[i]) then
+        begin
+          clrscr;
+          painel_acerto();
+          boneco_feliz();
+          pontos := pontos + 10;
+          painel_pontos();
+          writeln ('Total de Pontos: ', pontos);
+          writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+          readln (opcao);
+          if (opcao = 's') then
+          begin
+            exit
+          end
+          else
+          if (opcao = 'n') then
+          begin
+            halt;
+          end;
+        end
+        else
+        if (resp <> resposta[i]) then
+        begin
+          tentativa := tentativa + 1
+        end;
+      end;
+      
+      //Caso o usuário erre em todas as tentativas...
+      if (tentativa = 6) then
+      begin
+        clrscr;                //Limpa a tela
+        boneco();               //Chama o procedimento da ASCII ART do boneco enforcado
+        painel_erro();           //Chama o procedimento da ASCII ART de derrota do jogo
+        painel_pontos_zerado();   //Chama o procedimento da ASCII ART informando que os pontos foram zerados 
+        pontos:= 0;                //Zera os pontos do usuário
+        
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+				gotoxy(1,30);
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        gotoxy(1,31);
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+				if (opcao = 's') then
+        begin
+          exit; //Comando para voltar ao menu
+        end
+        //Caso digite 'n', o programa é encerrado
+			  else
+        if (opcao = 'n') then
+        begin
+          halt; //Comando para fechar o programa
+        end;
+      end;
+    end;
+  until (tentativa > 0);
+end;
+
+//Procedimento para a ASCII ART do menu de assunto: entreterimento
+procedure menu_entreterimento();
+begin
+  //ASCII ART da palavra central do menu entreterimento
+  gotoxy(35,1);
+  writeln('  ______ _   _ _______ _____  ______ _______ ______ _____  _____ __  __ ______ _   _ _______ ____    ');
+  gotoxy(35,2);
+  writeln(' |  ____| \ | |__   __|  __ \|  ____|__   __|  ____|  __ \|_   _|  \/  |  ____| \ | |__   __/ __ \   ');
+  gotoxy(35,3);
+  writeln(' | |__  |  \| |  | |  | |__) | |__     | |  | |__  | |__) | | | | \  / | |__  |  \| |  | | | |  | |  ');
+  gotoxy(35,4);
+  writeln(' |  __| | . ` |  | |  |  _  /|  __|    | |  |  __| |  _  /  | | | |\/| |  __| | . ` |  | | | |  | |  ');
+  gotoxy(35,5);
+  writeln(' | |____| |\  |  | |  | | \ \| |____   | |  | |____| | \ \ _| |_| |  | | |____| |\  |  | | | |__| |  ');
+  gotoxy(35,6);
+  writeln(' |______|_| \_|  |_|  |_|  \_\______|  |_|  |______|_|  \_\_____|_|  |_|______|_| \_|  |_|  \____/   '); 
+  
+  //Chama o procedimento do menu de dificuldades
+  painel_dificuldades();
+  
+  //Recebe a opção de dificuldade digitada pelo usuário
+  readln (opcao_dificuldade);
+  
+	clrscr; //Limpa a tela
+  
+  
+  case opcao_dificuldade of
+    //Caso o usuário digite a opção '1' relacionado a dificuldade 'Fácil'...
+		1:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 1;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+    
+    //Caso o usuário digite a opção '2' relacionado a dificuldade 'Intermediário'...
+    2:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+      i:= 2;
+      //Chama o procedimento das condicionais do jogo
+      condicional();
+    end;
+    
+    //Caso o usuário digite a opção '3' relacionado a dificuldade 'Difícil'...
+    3:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+      i:= 3;
+      //Chama o procedimento das condicionais do jogo
+      condicional();
+    end;
+  end;
+end;
+
+
+//Procedimento para a ASCII ART do menu de assunto: lógica
+procedure menu_logica();
+begin
+  //ASCII ART da palavra central do menu lógica
+  gotoxy(50,1);
+  writeln('  _       __   _____ _____ _____            ');
+  gotoxy(50,2);
+  writeln(' | |     /_/  / ____|_   _/ ____|   /\      ');
+  gotoxy(50,3);
+  writeln(' | |    / _ \| |  __  | || |       /  \     ');
+  gotoxy(50,4);
+  writeln(' | |   | | | | | |_ | | || |      / /\ \    ');
+  gotoxy(50,5);
+  writeln(' | |___| |_| | |__| |_| || |____ / ____ \   ');
+  gotoxy(50,6);
+  writeln(' |______\___/ \_____|_____\_____/_/    \_\  ');
+  
+	//Chama o procedimento do menu de dificuldades  
+  painel_dificuldades();
+  
+	//Recebe a opção de dificuldade digitada pelo usuário 
+  readln (opcao_dificuldade);
+  
+	clrscr; //Limpa a tela
+  
+  case opcao_dificuldade of
+    //Caso o usuário digite a opção '1' relacionado a dificuldade 'Fácil'...
+		1:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 4;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+    
+    //Caso o usuário digite a opção '2' relacionado a dificuldade 'Intermediário'...
+    2:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 5;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+    
+    //Caso o usuário digite a opção '3' relacionado a dificuldade 'Difícil'...
+    3:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+      i:= 6;
+      //Chama o procedimento das condicionais do jogo
+      condicional();
+    end;
+  end;
+end;
+
+//Procedimento para a ASCII ART do menu de assunto: história
+procedure menu_historia();
+begin
+  //ASCII ART da palavra central do menu história
+  gotoxy(50,1);
+  writeln('  _    _ _____  _____ _______ __  _____  _____            ');
+  gotoxy(50,2);
+  writeln(' | |  | |_   _|/ ____|__   __/_/ |  __ \|_   _|   /\      ');
+  gotoxy(50,3);
+  writeln(' | |__| | | | | (___    | | / _ \| |__) | | |    /  \     ');
+  gotoxy(50,4);
+  writeln(' |  __  | | |  \___ \   | || | | |  _  /  | |   / /\ \    ');
+  gotoxy(50,5);
+  writeln(' | |  | |_| |_ ____) |  | || |_| | | \ \ _| |_ / ____ \   ');
+  gotoxy(50,6);
+  writeln(' |_|  |_|_____|_____/   |_| \___/|_|  \_\_____/_/    \_\  ');
+  
+	//Chama o procedimento do menu de dificuldades     
+  painel_dificuldades();  
+  
+  //Recebe a opção de dificuldade digitada pelo usuário
+  readln (opcao_dificuldade);
+  
+	clrscr;    //Limpa a tela
+  
+  case opcao_dificuldade of
+    //Caso o usuário digite a opção '1' relacionado a dificuldade 'Fácil'...
+		1:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 7;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+    
+    //Caso o usuário digite a opção '2' relacionado a dificuldade 'Intermediário'...
+    2:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 8;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+    
+    //Caso o usuário digite a opção '3' relacionado a dificuldade 'Difícil'...
+    3:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 9;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+  end;
+end;
+
+//Procedimento para a ASCII ART do menu de assunto: biologia
+procedure menu_biologia();
+begin
+  //ASCII ART da palavra central do biologia 
+  gotoxy (50,1);
+  writeln('  ____ _____ ____  _      ____   _____ _____           ');
+  gotoxy (50,2);
+  writeln(' |  _ \_   _/ __ \| |    / __ \ / ____|_   _|   /\     ');
+  gotoxy (50,3);
+  writeln(' | |_) || || |  | | |   | |  | | |  __  | |    /  \    ');
+  gotoxy (50,4);
+  writeln(' |  _ < | || |  | | |   | |  | | | |_ | | |   / /\ \   ');
+  gotoxy (50,5);
+  writeln(' | |_) || || |__| | |___| |__| | |__| |_| |_ / ____ \  ');
+  gotoxy (50,6);
+  writeln(' |____/_____\____/|______\____/ \_____|_____/_/    \_\ ');
+  
+  //Chama o procedimento do menu de dificuldades
+  painel_dificuldades();
+   
+	//Recebe a opção de dificuldade digitada pelo usuário  
+  readln (opcao_dificuldade);
+ 
+  clrscr;   //Limpa a tela
+  
+  case opcao_dificuldade of
+    //Caso o usuário digite a opção '1' relacionado a dificuldade 'Fácil'...
+		1:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+			painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 10;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+    
+    //Caso o usuário digite a opção '2' relacionado a dificuldade 'Intermediário'...
+    2:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+      painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas						
+			i:= 11;
+      //Chama o procedimento das condicionais do jogo
+		  condicional();
+    end;
+    
+    //Caso o usuário digite a opção '3' relacionado a dificuldade 'Difícil'...
+    3:
+    begin
+      //Chama o procedimento da ASCII ART relacionado a palavra 'dica'
+			painel_dica();
+      //Relaciona um número ao contador de perguntas e respostas
+			i:= 12;
+      //Chama o procedimento das condicionais do jogo
+			condicional();
+    end;
+  end;
+end;
+
+//Procedimento para a ASCII ART do menu principal
+procedure menu_principal ();
+begin
+  //ASCII ART do nome do jogo: JUDAS
+  gotoxy (50,1);
+  writeln('       _ _    _ _____           _____   ');
+  gotoxy (50,2);
+  writeln('      | | |  | |  __ \   /\    / ____|  ');
+  gotoxy (50,3);
+  writeln('      | | |  | | |  | | /  \  | (___    ');
+  gotoxy (50,4);
+  writeln('  _   | | |  | | |  | |/ /\ \  \___ \   ');
+  gotoxy (50,5);
+  writeln(' | |__| | |__| | |__| / ____ \ ____) |  ');
+  gotoxy (50,6);
+  writeln('  \____/ \____/|_____/_/    \_\_____/   ');
+  
+  //Chama o procedimento da ASCII ART do boneco enforcado
+	boneco();
+  
+  //ASCII ART referente a primeira opção do menu principal: 'Começar'
+  writeln('  _          ___ ___  __  __ ___ ___   _   ___    ');
+  writeln(' / |  ___   / __/ _ \|  \/  | __/ __| /_\ | _ \   ');
+  writeln(' | | |___| | (_| (_) | |\/| | _| (__ / _ \|   /   ');
+  writeln(' |_|        \___\___/|_|  |_|___\___/_/ \_\_|_\   ');
+  writeln('                                 )_)              ');
+  
+  //ASCII ART referente a segunda opção do menu principal: 'Instruções'
+  writeln('  ___         ___ _  _ ___ _____ ___ _   _  ___  /\/|___ ___   ');
+  writeln(' |_  )  ___  |_ _| \| / __|_   _| _ \ | | |/ __||/\/| __/ __|  ');
+  writeln('  / /  |___|  | || .` \__ \ | | |   / |_| | (__/ __ \ _|\__ \  ');
+  writeln(' /___|       |___|_|\_|___/ |_| |_|_\\___/ \___\____/___|___/  ');
+  writeln('                                            )_)                ');  
+  
+	//ASCII ART referente a terceira opção do menu principal: 'Loja'
+  writeln('  ____        _    ___     _  _     ');
+  writeln(' |__ /  ___  | |  / _ \ _ | |/_\    ');
+  writeln('  |_ \ |___| | |_| (_) | || / _ \   ');
+  writeln(' |___/       |____\___/ \__/_/ \_\  ');
+  
+  
+  //Recebe a opção do menu digitada pelo usuário
+  readln (opcao_menu);
+  
+  
+  clrscr; //Limpa a tela
+  
+  //Caso ele escolha a primeira opção, começa o jogo
+  case opcao_menu of
+    1:
+    begin
+      //ASCII ART referente ao menu de escolha de assuntos 
+      gotoxy (35,1);
+      writeln('  ___ ___  ___ ___  _    _  _   _         _   _ __  __          _   ___ ___ _   _ _  _ _____ ___    ');
+      gotoxy (35,2);
+      writeln(' | __/ __|/ __/ _ \| |  | || | /_\       | | | |  \/  |        /_\ / __/ __| | | | \| |_   _/ _ \   ');
+      gotoxy (35,3);
+      writeln(' | _|\__ \ (_| (_) | |__| __ |/ _ \      | |_| | |\/| |       / _ \\__ \__ \ |_| | .` | | || (_) |  ');
+      gotoxy (35,4);
+      writeln(' |___|___/\___\___/|____|_||_/_/ \_\      \___/|_|  |_|      /_/ \_\___/___/\___/|_|\_| |_| \___/   ');
+      
+      //Chama o procedimento da ASCII ART do boneco enforcado
+      boneco();
+      
+      //ASCII ART referente a terceira opção do menu de assuntos: 'Entreterimento'
+      writeln('  _         ___ _  _ _____ ___ ___ _____ ___ ___ ___ __  __ ___ _  _ _____ ___   ');
+      writeln(' / |  ___  | __| \| |_   _| _ \ __|_   _| __| _ \_ _|  \/  | __| \| |_   _/ _ \  ');
+      writeln(' | | |___| | _|| .` | | | |   / _|  | | | _||   /| || |\/| | _|| .` | | || (_) | ');
+      writeln(' |_|       |___|_|\_| |_| |_|_\___| |_| |___|_|_\___|_|  |_|___|_|\_| |_| \___/  ');
+      
+      //ASCII ART referente a terceira opção do menu de assuntos: 'Lógica'
+      writeln('  ___         _      __  ___ ___ ___   _    ');
+      writeln(' |_  )  ___  | |   _/_/ / __|_ _/ __| /_\   ');
+      writeln('  / /  |___| | |__/ __ \ (_ || | (__ / _ \  ');
+      writeln(' /___|       |____\____/\___|___\___/_/ \_\ ');
+      
+      //ASCII ART referente a terceira opção do menu de assuntos: 'História'
+      writeln('  ____        _  _ ___ ___ _____  __ ___ ___   _    ');
+      writeln(' |__ /  ___  | || |_ _/ __|_   _|/_/| _ \_ _| /_\   ');
+      writeln('  |_ \ |___| | __ || |\__ \ | |/ __ \   /| | / _ \  ');
+      writeln(' |___/       |_||_|___|___/ |_|\____/_|_\___/_/ \_\ ');
+      
+      //ASCII ART referente a terceira opção do menu de assuntos: 'Biologia'
+      writeln('  _ _          ___ ___ ___  _    ___   ___ ___   _    ');
+      writeln(' | | |   ___  | _ )_ _/ _ \| |  / _ \ / __|_ _| /_\   ');
+      writeln(' |_  _| |___| | _ \| | (_) | |_| (_) | (_ || | / _ \  ');
+      writeln('   |_|        |___/___\___/|____\___/ \___|___/_/ \_\ ');
+      
+      
+      //Recebe a opção de assunto digitada pelo usuário
+      readln (opcao_assunto);
+     
+		  clrscr;    //Limpa a tela
+      
+      //Caso escolha a primeira opção, vai para o menu de dificuldade das perguntas na área do entreterimento
+      if (opcao_assunto = 1) then
+      begin
+        menu_entreterimento();
+      end
+      
+      //Caso escolha a segunda opção, vai para o menu de dificuldade das perguntas na área de lógica
+      else
+      if (opcao_assunto = 2) then
+      begin
+        menu_logica();
+      end
+      
+      //Caso escolha a terceira opção, vai para o menu de dificuldade das perguntas na área da história
+      else
+      if (opcao_assunto = 3) then
+      begin
+        menu_historia();
+      end
+      
+      //Caso escolha a quarta opção, vai para o menu de dificuldades das perguntas na área da biologia
+      else
+      if (opcao_assunto = 4) then
+      begin
+        menu_biologia();
+      end
+    end;
+    //Caso escolha a segunda opção no menu principal, abre as instruções
+    2:
+    begin
+      painel_instrucoes();
+      gotoxy(1,15);
+      write ('O objetivo deste jogo é descobrir uma palavra a partir de uma dica. ');
+      write ('Após escolher o tema e a dificuldade, o jogador irá digitar uma palavra que suspeite ser a resposta.');
+      write ('Caso a palvra esteja errada, será desenhada uma parte do corpo do boneco. ');
+      write ('Se todas as 6 partes do corpo do boneco estiverem desenhadas, o jogador perderá, caso contrário, ele ganhará pontos que podem ser trocados na loja do jogo .');
+      
+      //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+			gotoxy(1,25);     
+			writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+      readln (opcao);
+      //Caso digite 's', ele volta ao menu
+			if (opcao = 's') then
+      begin
+        clrscr;
+        exit;  //Comando para voltar ao menu
+      end
+      //Caso digite 'n', o programa é encerrado
+			else
+      if (opcao = 'n') then
+      begin
+        halt;  //Comando para fechar o programa
+      end;
+    end;
+    
+    //Caso escolha a terceira opção no menu principal, abre a loja
+    3:
+    begin
+      //Chama o procedimento relacionado as ASCII ART'S do painel da loja
+      painel_loja();
+      
+      //Recebe a opção de prêmio digitada pelo usuário
+      readln(opcao_loja);
+      
+      //Caso ele escolha a terceira opção, e possuir os pontos necessários, mostra o prêmio
+      if (opcao_loja = 3) and (pontos >= 30) then
+      begin
+        clrscr;
+        gotoxy (50,1);
+        writeln('  ___ ___ ___ __  __ ___ ___    ___ ___  ___  _  _ _______   ');
+        gotoxy (50,2);
+        writeln(' | _ \ _ \ __|  \/  |_ _/ _ \  | _ ) _ \/ _ \| \| |_  / __|  ');
+        gotoxy (50,3);
+        writeln(' |  _/   / _|| |\/| || | (_) | | _ \   / (_) | .` |/ /| _|   ');
+        gotoxy (50,4);
+        writeln(' |_| |_|_\___|_|  |_|___\___/  |___/_|_\\___/|_|\_/___|___|  ');
+        
+        textcolor(brown);
+        gotoxy(60,7);
+        writeln('          .--------::::::::-       ');
+        gotoxy(60,8);
+        writeln('      .--..:::::::://::::::---:-   ');
+        gotoxy(60,9);
+        writeln('      -:..-:--:::://:::::::-../:   ');
+        gotoxy(60,10);
+        writeln('      `:.  ---:/ ____  ///:::  -/` ');
+        gotoxy(60,11);
+        writeln('       .:  .--: |__ / //::/- `/-   ');
+        gotoxy(60,12);
+        writeln('        --``---  |_ \  /:///` :-   ');
+        gotoxy(60,13);
+        writeln('         .-..:- |___/ ////-.:.     ');
+        gotoxy(60,14);
+        writeln('           .--::    ///:-.         ');
+        gotoxy(60,15);
+        writeln('              `-:::///:`           ');
+        gotoxy(60,16);
+        writeln('               -::://+:            ');
+        gotoxy(60,17);
+        writeln('                -:://-`            ');
+        gotoxy(60,18);
+        writeln('                 -://              ');
+        gotoxy(60,19);
+        writeln('                `:/+/`             ');
+        gotoxy(60,20);
+        writeln('              `::::////`           ');
+        gotoxy(60,21);
+        writeln('          `---++++++++oo---        ');
+        gotoxy(60,22);
+        writeln('          `yhhyyyyyyssyyhhy`       ');
+        gotoxy(60,23);
+        writeln('           yhs::::::::::+hy        ');
+        textcolor(white);
+        
+        gotoxy(1,29);
+        writeln('    _   ___  ___  ___ _____ ___ _      _            ___   ');
+        gotoxy(1,30);
+        writeln('   /_\ | _ \/ _ \/ __|_   _|_ _| |    /_\    ___   / __|  ');
+        gotoxy(1,31);
+        writeln('  / _ \|  _/ (_) \__ \ | |  | || |__ / _ \  |___| | (__   ');
+        gotoxy(1,32);
+        writeln(' /_/ \_\_|  \___/|___/ |_| |___|____/_/ \_\        \___|  ');
+        
+        writeln('  _     _   _                  ____                      _    _______ _          _   _ _  ___     ');
+        writeln(' | |__ | |_| |_ _ __  ___ _   / / /_ _  ___   ___   __ _| |  / /___  | |    ___ | | | | |/ / |_   ');
+        writeln(' |  _ \| __| __| |_ \/ __(_) / / / _` |/ _ \ / _ \ / _` | | / /   / /| |   / _ \| |_| | ` /| __|  ');
+        writeln(' | | | | |_| |_| |_) \__ \_ / / / (_| | (_) | (_) | (_| | |/ /   / / | |__| (_) |  _  | . \| |_   ');
+        writeln(' |_| |_|\__|\__| .__/|___(_)_/_/ \__, |\___/ \___(_)__, |_/_/   /_/  |_____\___/|_| |_|_|\_\\__|  ');
+        writeln('               |_|               |___/             |___/                                          ');
+        
+        pontos:= pontos - 30; //O usuário perde os pontos utilizados na compra
+        
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+				if (opcao = 's') then
+        begin
+          clrscr; //Limpa a tela
+          exit;   //Comando para voltar ao menu
+        end
+        //Caso digite 'n', o programa é encerrado
+        else
+        if (opcao = 'n') then
+        begin
+          halt;   //Comando para fechar o programa
+        end;
+      end
+      //Caso ele escolha a terceira opção, e não possuir os pontos necessários, mostra a informação de pontos insuficientes e pergunta se ele deseja voltar ao menu
+      else
+      if (opcao_loja = 3) and (pontos < 30) then
+      begin
+        writeln ('Pontos insuficientes');
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal 
+				writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+				if (opcao = 's') then
+        begin
+          clrscr; //Limpa a tela
+          exit; //Comando para voltar ao menu
+        end
+        //Caso digite 'n', o programa é encerrado
+        else
+        if (opcao = 'n') then
+        begin
+          halt;  //Comando para fechar o programa
+        end;
+      end
+      
+      //Caso ele escolha a segunda opção, e possuir os pontos necessários, mostra o prêmio
+      else
+      if (opcao_loja = 2) and (pontos >= 60) then
+      begin
+        clrscr;
+        gotoxy (50,1);
+        writeln('  ___ ___ ___ __  __ ___ ___    ___ ___    _ _____ _    ');
+        gotoxy (50,2);
+        writeln(' | _ \ _ \ __|  \/  |_ _/ _ \  | _ \ _ \  /_\_   _/_\   ');
+        gotoxy (50,3);
+        writeln(' |  _/   / _|| |\/| || | (_) | |  _/   / / _ \| |/ _ \  ');
+        gotoxy (50,4);
+        writeln(' |_| |_|_\___|_|  |_|___\___/  |_| |_|_\/_/ \_\_/_/ \_\ ');
+        
+        textcolor(darkgray);
+        gotoxy(50,7);
+        writeln('          .--------::::::::-         ');
+        gotoxy(50,8);
+        writeln('      .--..:::::::://::::::---:-     ');
+        gotoxy(50,9);
+        writeln('      -:..-:--:::://:::::::-../:     ');
+        gotoxy(50,10);
+        writeln('      `:.  ---:/ ___  ///:::  -/`    ');
+        gotoxy(50,11);
+        writeln('       .:  .--: |_  ) //::/- `/-     ');
+        gotoxy(50,12);
+        writeln('        --``---  / /  /:///` :-      ');
+        gotoxy(50,13);
+        writeln('         .-..:- /___| ////-.:.       ');
+        gotoxy(50,14);
+        writeln('           .--::    ///:-.           ');
+        gotoxy(50,15);
+        writeln('              `-:::///:`             ');
+        gotoxy(50,16);
+        writeln('               -::://+:              ');
+        gotoxy(50,17);
+        writeln('                -:://-`              ');
+        gotoxy(50,18);
+        writeln('                 -://                ');
+        gotoxy(50,19);
+        writeln('                `:/+/`               ');
+        gotoxy(50,20);
+        writeln('              `::::////`             ');
+        gotoxy(50,21);
+        writeln('          `---++++++++oo---          ');
+        gotoxy(50,22);
+        writeln('          `yhhyyyyyyssyyhhy`         ');
+        gotoxy(50,23);
+        writeln('           yhs::::::::::+hy          ');
+        textcolor(white);
+        
+        gotoxy(1,29);
+        writeln('    _   ___  ___  ___ _____ ___ _      _           _  _ _____ __  __ _    ___    ');
+        gotoxy(1,30);
+        writeln('   /_\ | _ \/ _ \/ __|_   _|_ _| |    /_\    ___  | || |_   _|  \/  | |  | __|   ');
+        gotoxy(1,31);
+        writeln('  / _ \|  _/ (_) \__ \ | |  | || |__ / _ \  |___| | __ | | | | |\/| | |__|__ \   ');
+        gotoxy(1,32);
+        writeln(' /_/ \_\_|  \___/|___/ |_| |___|____/_/ \_\       |_||_| |_| |_|  |_|____|___/   ');
+        
+        writeln('  _     _   _                   ____                     _     _______ _    _            ____   _____   ');
+        writeln(' | |   | | | |            _    / / /                    | |   / / ____| |  | |          |___ \ / ____|  ');
+        writeln(' | |__ | |_| |_ _ __  ___(_)  / / /_ _  ___   ___   __ _| |  / / (___ | |  | | __ _  ___  __) | |       ');
+        writeln(' |  _ \| __| __| |_ \/ __|   / / / _` |/ _ \ / _ \ / _` | | / / \___ \| |  | |/ _` |/ __||__ <| |       ');
+        writeln(' | | | | |_| |_| |_) \__ \_ / / / (_| | (_) | (_) | (_| | |/ /  ____) | |__| | (_| | (__ ___) | |____   ');
+        writeln(' |_| |_|\__|\__| .__/|___(_)_/_/ \__, |\___/ \___(_)__, |_/_/  |_____/ \____/ \__,_|\___|____/ \_____|  ');
+        writeln('               | |                __/ |             __/ |                                               ');
+        writeln('               |_|               |___/             |___/                                                ');
+        
+        pontos:= pontos - 60; //O usuário perde os pontos utilizados na compra
+        
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+				if (opcao = 's') then
+        begin
+          clrscr;  //Limpa a tela
+          exit;    //Comando para voltar ao menu
+        end
+        //Caso digite 'n', o programa é encerrado
+        else
+        if (opcao = 'n') then
+        begin
+          halt; //Comando para fechar o programa
+        end;;
+      end
+     
+		 //Caso ele escolha a segunda opção, e não possuir os pontos necessários, mostra a informação de pontos insuficientes e pergunta se ele deseja voltar ao menu
+      else
+      if (opcao_loja = 2) and (pontos < 60) then
+      begin
+        writeln ('Pontos insuficientes');
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+			  if (opcao = 's') then
+        begin
+          clrscr; //Limpa a tela
+          exit;   //Comando para voltar ao menu
+        end
+        else
+        //Caso digite 'n', o programa é encerrado
+        if (opcao = 'n') then
+        begin
+          halt;   //Comando para fechar o programa
+        end;
+      end
+      
+      //Caso ele escolha a primeira opção, e possuir os pontos necessários, mostra o prêmio
+      else
+      if (opcao_loja = 1) and (pontos >= 90) then
+      begin
+        clrscr;
+        gotoxy (50,1);
+        writeln('  ___ ___ ___ __  __ ___ ___     ___  _   _ ___  ___   ');
+        gotoxy (50,2);
+        writeln(' | _ \ _ \ __|  \/  |_ _/ _ \   / _ \| | | | _ \/ _ \  ');
+        gotoxy (50,3);
+        writeln(' |  _/   / _|| |\/| || | (_) | | (_) | |_| |   / (_) | ');
+        gotoxy (50,4);
+        writeln(' |_| |_|_\___|_|  |_|___\___/   \___/ \___/|_|_\\___/  ');
+        
+        textcolor(yellow);
+        gotoxy(50,7);
+        writeln('          .--------::::::::-       ');
+        gotoxy(50,8);
+        writeln('      .--..:::::::://::::::---:-   ');
+        gotoxy(50,9);
+        writeln('      -:..-:--:::://:::::::-../:   ');
+        gotoxy(50,10);
+        writeln('      `:.  ---:/  _  ///:::  -/`   ');
+        gotoxy(50,11);
+        writeln('       .:  .--:: / | //::/- `/-    ');
+        gotoxy(50,12);
+        writeln('        --``---: | | /:///` :-     ');
+        gotoxy(50,13);
+        writeln('         .-..:-: |_| ////-.:.      ');
+        gotoxy(50,14);
+        writeln('           .--::    ///:-.         ');
+        gotoxy(50,15);
+        writeln('              `-:::///:`           ');
+        gotoxy(50,16);
+        writeln('               -::://+:            ');
+        gotoxy(50,17);
+        writeln('                -:://-`            ');
+        gotoxy(50,18);
+        writeln('                 -://              ');
+        gotoxy(50,19);
+        writeln('                `:/+/`             ');
+        gotoxy(50,20);
+        writeln('              `::::////`           ');
+        gotoxy(50,21);
+        writeln('          `---++++++++oo---        ');
+        gotoxy(50,22);
+        writeln('          `yhhyyyyyyssyyhhy`       ');
+        gotoxy(50,23);
+        writeln('           yhs::::::::::+hy        ');
+        textcolor(white);
+        
+        gotoxy(1,29);
+        writeln('    _   ___  ___  ___ _____ ___ _      _              _  ___   ___      ');
+        gotoxy(1,30);
+        writeln('   /_\ | _ \/ _ \/ __|_   _|_ _| |    /_\    ___   _ | |/_\ \ / /_\     ');
+        gotoxy(1,31);
+        writeln('  / _ \|  _/ (_) \__ \ | |  | || |__ / _ \  |___| | || / _ \ V / _ \    ');
+        gotoxy(1,32);
+        writeln(' /_/ \_\_|  \___/|___/ |_| |___|____/_/ \_\        \__/_/ \_\_/_/ \_\   ');
+        
+        writeln('  _     _   _                   ____                     _     ________ _____     _____  _  ___          __   ');
+        writeln(' | |   | | | |            _    / / /                    | |   / /  ____/ ____|   |  __ \| || \ \        / /   ');
+        writeln(' | |__ | |_| |_ _ __  ___(_)  / / /_ _  ___   ___   __ _| |  / /| |__ | |     ___| |__) | || |\ \  /\  / /    ');
+        writeln(' | |_ \| __| __| |_ \/ __|   / / / _` |/ _ \ / _ \ / _` | | / / |  __|| |    / __|  _  /|__   _\ \/  \/ /     ');
+        writeln(' | | | | |_| |_| |_) \__ \_ / / / (_| | (_) | (_) | (_| | |/ /  | |   | |___| (__| | \ \   | |  \  /\  /      ');
+        writeln(' |_| |_|\__|\__| .__/|___(_)_/_/ \__, |\___/ \___(_)__, |_/_/   |_|    \_____\___|_|  \_\  |_|   \/  \/       ');
+        writeln('               | |                __/ |             __/ |                                                     ');
+        writeln('               |_|               |___/             |___/                                                      ');
+        
+        pontos:= pontos - 90;  //O usuário perde os pontos utilizados na compra
+        
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+        writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+				if (opcao = 's') then
+        begin
+          clrscr; //Limpa a tela
+          exit;   //Comando para voltar ao menu
+        end
+        //Caso digite 'n', o programa é encerrado
+        else
+        if (opcao = 'n') then
+        begin
+          halt;  //Comando para fechar o programa
+        end;
+      end
+      
+			//Caso ele escolha a primeira opção, e não possuir os pontos necessários, mostra a informação de pontos insuficientes e pergunta se ele deseja voltar ao menu
+			else
+      if (opcao_loja = 1) and (pontos < 90) then
+      begin
+        writeln ('Pontos insuficientes');
+        //É feita a pergunta ao usuário se ele deseja voltar ao menu principal
+				writeln ('Você deseja voltar para o menu principal? S(SIM) N(NÃO)');
+        readln (opcao);
+        //Caso digite 's', ele volta ao menu
+				if (opcao = 's') then
+        begin
+          clrscr; //Limpa a tela
+          exit;   //Comando para voltar ao menu
+				end
+        //Caso digite 'n', o programa é encerrado
+				else
+        if (opcao = 'n') then
+        begin
+          halt; //Comando para fechar o programa
+        end;
+      end
+    end;
+  end;
+end;
+
+//Fim dos procedimentos
+
+//Programa principal
+Begin
+  
+  //Painel de perguntas e respostas referente ao jogo
+  
+ //Entreterimento
+  //Fácil
+   pergunta[1] := 'Recordista de vendas de discos no Brasil - 14 LETRAS';
+   resposta[1] := 'roberto carlos';
+    //Intermediário
+     pergunta[2] := 'Chaves - Série - Correios - 8 LETRAS';
+     resposta[2] := 'jaiminho';
+     //Dificil
+      pergunta[3] := 'Entidade mutante - 5 LETRAS';
+      resposta[3] := 'fenix0';
+  
+ //Lógica
+  //Fácil
+   pergunta[4] := 'Recebo por valor e por referência - 10 LETRAS';
+   resposta[4] := 'parametros';
+    //Intermediário
+     pergunta[5] := 'Armazena Informações - 9 LETRAS ';
+     resposta[5] := 'variaveis';
+      //Difici
+       pergunta[6] := 'Algoritmos - 11 LETRAS';  
+       resposta[6] := 'comentarios';
+	
+//História 
+  //Fácil
+	 pergunta[7] := 'Lei assinada pela princesa Isabel que proibia a escravidão no Brasil - 5 LETRAS';
+   resposta[7] := 'aurea';
+    //Intermediário
+     pergunta[8] := 'Incas - Continente - 7 LETRAS';
+     resposta[8] := 'america';
+      //Dificil
+       pergunta[9] := 'Mesopotâmia - 7 LETRAS';
+       resposta[9] := 'escrita';
+  
+ //Biologia 
+  //Fácil
+	 pergunta[10] := 'Microorganismo usado na fermentação para a fabricação de cerveja e pães - 5 LETRAS';
+   resposta[10] := 'fungo';
+    //Intermediário
+     pergunta[11] := 'Zooologia, estudo de insetos - 11 LETRAS';
+     resposta[11] := 'entomologia';
+      //Dificil
+       pergunta[12] := 'Embrião - 8 LETRAS';
+       resposta[12] := 'placenta';
+  
+  //Muda a cor das letras do programa principal para branco
+  textcolor (white);
+  
+	//Chama o procedimento do menu principal
+  menu_principal();
+  
+	//Enquanto o usuário desejar continuar no jogo, o programa é repetido
+  while (opcao = 's') do
+  begin
+    clrscr;
+    menu_principal();
+  end;
+  
+End.
